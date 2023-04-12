@@ -30,6 +30,8 @@
     "@stripe/stripe-js": "^1.29.0",
     "@tanstack/react-query": "^4.22.4",
     "clsx": "^1.1.1",
+    "embla-carousel-autoplay": "^7.1.0",
+    "embla-carousel-react": "^7.1.0",
     "lodash": "^4.17.21",
     "medusa-react": "^4.0.4",
     "next": "^12.2.0",
