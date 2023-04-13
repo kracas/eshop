@@ -15,7 +15,7 @@ import logo from "@assets/logo.png"
 
 const Nav = () => {
 
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 3000, stopOnInteraction: false })]);
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000, stopOnInteraction: false })]);
 
   const { toggle } = useMobileMenu()
 
@@ -23,11 +23,10 @@ const Nav = () => {
     <div
       className="sticky top-0 inset-x-0 z-50 group"
     >
-      <div className="overflow-hidden text-center text-sm py-1 bg-black text-white" ref={emblaRef}>
+      <div className="overflow-hidden text-center text-sm py-2 bg-black text-white" ref={emblaRef}>
         <div className="flex">
-          <div className="relative flex-[0_0_100%]"><Link href='/'><a>Text</a></Link></div>
-          <div className="relative flex-[0_0_100%]"><Link href='/'><a>Text 2</a></Link></div>
-
+          <div className="relative flex-[0_0_100%]"><Link href='/'><a>FREE WORLDWIDE SHIPPING ON ORDERS OVER €200</a></Link></div>
+          <div className="relative flex-[0_0_100%]"><Link href='/'><a>FREE EUROPEAN SHIPPING ON ORDERS OVER €100</a></Link></div>
         </div>
       </div>
       <header
