@@ -7,6 +7,9 @@ import X from "@modules/common/icons/x"
 import { useCollections, useMeCustomer } from "medusa-react"
 import Link from "next/link"
 import ReactCountryFlag from "react-country-flag"
+import CategoryItem from "./categoryItem"
+import Image from "next/image"
+import logo from "@assets/logo.png"
 
 const MainMenu = () => {
   const { collections } = useCollections()
@@ -18,6 +21,7 @@ const MainMenu = () => {
   const {
     close,
     screen: [_, setScreen],
+    categories
   } = useMobileMenu()
 
   const setScreenCountry = () => setScreen("country")
@@ -35,8 +39,8 @@ const MainMenu = () => {
             <ChevronDown />
           </button>
         </div>
-        <div>
-          <h1 className="text-xl-semi uppercase">Acme</h1>
+        <div className="flex relative w-full h-12">
+          <Image src={logo} objectFit="contain" alt="" layout="fill" />
         </div>
         <div className="flex-1 basis-0 flex justify-end">
           <button onClick={close}>
@@ -60,20 +64,6 @@ const MainMenu = () => {
 
         <div className="flex flex-col flex-1 text-large-regular text-gray-900">
           <ul className="flex flex-col gap-y-2">
-            <li className="bg-gray-50 p-4">
-              <Link href="/store">
-                <a>
-                  <button
-                    className="flex items-center justify-between w-full"
-                    onClick={close}
-                  >
-                    <span className="sr-only">Go to Store</span>
-                    <span>Store</span>
-                    <ChevronDown className="-rotate-90" />
-                  </button>
-                </a>
-              </Link>
-            </li>
             {collections ? (
               <>
                 {collections.map((collection) => (
@@ -88,7 +78,6 @@ const MainMenu = () => {
                             Go to {collection.title} collection
                           </span>
                           <span>{collection.title}</span>
-                          <ChevronDown className="-rotate-90" />
                         </button>
                       </a>
                     </Link>
@@ -96,6 +85,10 @@ const MainMenu = () => {
                 ))}
               </>
             ) : null}
+
+            {categories.length > 0 && categories.map(category => (
+              <CategoryItem key={'cat_' + category.id} keyId={category.id} category={category} depth={0} />
+            ))}
           </ul>
         </div>
 

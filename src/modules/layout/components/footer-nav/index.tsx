@@ -1,73 +1,44 @@
-import clsx from "clsx"
-import { useCollections } from "medusa-react"
-import Link from "next/link"
+import MenuItem from "./menuItem"
 import CountrySelect from "../country-select"
 
 const FooterNav = () => {
-  const { collections } = useCollections()
 
   return (
-    <div className="content-container flex flex-col gap-y-8 pt-16 pb-8">
+    <div className="content-container flex flex-col gap-y-8 pt-10 pb-8">
       <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between">
-        <div>
-          <Link href="/">
-            <a className="text-xl-semi uppercase">Acme</a>
-          </Link>
-        </div>
-        <div className="text-small-regular grid grid-cols-2 gap-x-16">
-          <div className="flex flex-col gap-y-2">
-            <span className="text-base-semi">Collections</span>
-            <ul
-              className={clsx("grid grid-cols-1 gap-y-2", {
-                "grid-cols-2": (collections?.length || 0) > 4,
-              })}
-            >
-              {collections?.map((c) => (
-                <li key={c.id}>
-                  <Link href={`/collections/${c.id}`}>
-                    <a>{c.title}</a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="flex flex-col gap-y-2">
-            <span className="text-base-semi">Medusa</span>
-            <ul className="grid grid-cols-1 gap-y-2">
-              <li>
-                <a
-                  href="https://github.com/medusajs"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://docs.medusajs.com"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Documentation
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/medusajs/nextjs-starter-medusa"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Source code
-                </a>
-              </li>
-            </ul>
-          </div>
+        <div className="text-small-regular grid grid-cols-2 gap-x-10 gap-y-6">
+          <MenuItem
+            title='About us'
+            items={[
+              { title: 'About Us', url: "/about" },
+              { title: 'Try it on Today', url: "/about" },
+              { title: 'Contact Us', url: "/contact" },
+
+            ]}
+          />
+          <MenuItem
+            title='CUSTOMER CARE'
+            items={[
+              { title: 'Jewelry Care', url: "/care" },
+              { title: 'Shipping & Delivery', url: "/shipping" },
+              { title: 'Returns & Exchanges', url: "/returns" },
+              { title: 'Warranty', url: "/warranty" },
+              { title: 'Ring Size', url: "/ring-size" },
+            ]}
+          />
+          <MenuItem
+            title='Terms of service'
+            items={[
+              { title: 'Privacy Policy', url: "/privacy" },
+              { title: 'Cookie Policy', url: "/cookie" },
+              { title: 'Terms of Service', url: "/terms" },
+            ]}
+          />
         </div>
       </div>
       <div className="flex flex-col-reverse gap-y-4 justify-center xsmall:items-center xsmall:flex-row xsmall:items-end xsmall:justify-between">
         <span className="text-xsmall-regular text-gray-500">
-          © Copyright 2022 ACME
+          © Copyright {new Date().getFullYear()} ForeverSeptember
         </span>
         <div className="min-w-[316px] flex xsmall:justify-end">
           <CountrySelect />

@@ -10,7 +10,7 @@ const Container = ({ children }: ContainerProps) => {
   const { state, close } = useMobileMenu()
   return (
     <Transition.Root show={state} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 flex z-50" onClose={close}>
+      <Dialog as="div" className="fixed inset-0 flex z-50" onClose={close} unmount={false}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"

@@ -10,6 +10,8 @@ import {
   useEffect,
   useState,
 } from "react"
+import { ProductCategory } from "@medusajs/medusa"
+import { medusaClient } from "@lib/config"
 
 type ScreenType = "main" | "country" | "search"
 
@@ -18,7 +20,8 @@ interface MobileMenuContext {
   open: () => void
   close: () => void
   toggle: () => void
-  screen: [ScreenType, Dispatch<SetStateAction<ScreenType>>]
+  screen: [ScreenType, Dispatch<SetStateAction<ScreenType>>],
+  categories: ProductCategory[],
 }
 
 export const MobileMenuContext = createContext<MobileMenuContext | null>(null)
@@ -30,6 +33,7 @@ export const MobileMenuProvider = ({
 }) => {
   const { state, close, open, toggle } = useToggleState()
   const [screen, setScreen] = useState<ScreenType>("main")
+  const [categories, setCategories] = useState<ProductCategory[]>([])
 
   const windowWidth = useCurrentWidth()
 
@@ -49,7 +53,15 @@ export const MobileMenuProvider = ({
     }
   }, [debouncedWith, state, closeMenu])
 
-  useEffect(() => {}, [debouncedWith])
+  useEffect(() => { }, [debouncedWith])
+
+  useEffect(() => {
+    medusaClient.productCategories
+      .list({ parent_category_id: 'pcat_01GXXPSAKFR1GFFJJ4QXMYXASC', include_descendants_tree: true }) //category Menu id
+      .then(({ product_categories }) => setCategories(product_categories))
+      .catch(error => console.log(error))
+  }, [])
+
 
   return (
     <MobileMenuContext.Provider
@@ -59,6 +71,7 @@ export const MobileMenuProvider = ({
         open,
         toggle,
         screen: [screen, setScreen],
+        categories
       }}
     >
       {children}
