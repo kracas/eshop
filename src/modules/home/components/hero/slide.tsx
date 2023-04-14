@@ -1,13 +1,8 @@
 import UnderlineLink from "@modules/common/components/underline-link"
 import Image from "next/image"
-import useEmblaCarousel from "embla-carousel-react"
-import Autoplay from "embla-carousel-autoplay"
 import { StaticImageData } from "next/image"
 
-
 const Slide: React.FC<{ image: StaticImageData, text: string, linkText: string }> = ({ image, text, linkText }) => {
-
-  const [emblaRef] = useEmblaCarousel({ loop: true });
 
   return (
     <div className="relative flex-[0_0_100%]">
