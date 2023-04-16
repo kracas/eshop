@@ -10,7 +10,7 @@ const FeaturedProducts = () => {
     <div className="py-12">
       <div className="content-container">
         <div className="flex flex-col items-center text-center mb-10 text-2xl-regular text-gray-900 max-w-lg">
-          Agne&apos;s Favorites
+          Agnė&apos;s Favorites
         </div>
         <ul className="grid grid-cols-2 small:grid-cols-4 gap-x-4 gap-y-8">
           {data
