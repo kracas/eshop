@@ -1,26 +1,27 @@
 import UnderlineLink from "@modules/common/components/underline-link"
 import Image from "next/image"
+import { useEffect } from "react"
+import Instafeed from "@lib/instafeed"
 
 const FooterCTA = () => {
+  useEffect(() => {
+    const feed = new Instafeed({
+      accessToken: 'IGQVJYMlRmaS1vMTVrOE5heDBrbHdBSmJlNmFleExGWGl0SE9qZA3pBUmpTQ3pUendtQWRBOEpOTXJFd01QZAHJLTGROdkVIcmZAJSU1iZAFhpY3d3SXJ2QmR6UnJJNmpZAODBtV0VWRFdWWFZAJb2s5dU5NMQZDZD',
+      limit: 6
+    });
+    feed.run();
+  }, [])
+
   return (
-    <div className="bg-amber-100 w-full">
-      <div className="content-container flex flex-col-reverse gap-y-8 small:flex-row small:items-center justify-between py-16 relative">
+    <div className="bg-red-50 w-full">
+      <div className="content-container flex flex-col-reverse gap-y-8 small:flex-row small:items-center justify-between py-8 relative">
         <div>
           <h3 className="text-2xl-semi">Shop the latest styles</h3>
           <div className="mt-6">
             <UnderlineLink href="/store">Explore products</UnderlineLink>
           </div>
         </div>
-
-        <div className="relative w-full aspect-square small:w-[35%] small:aspect-[28/36]">
-          <Image
-            src="/cta_three.jpg"
-            alt=""
-            layout="fill"
-            objectFit="cover"
-            className="absolute inset-0"
-          />
-        </div>
+        <div id="instafeed" className="flex flex-wrap gap-3"/>
       </div>
     </div>
   )
