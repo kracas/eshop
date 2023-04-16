@@ -12,7 +12,6 @@ import {
 } from "react"
 import { ProductCategory } from "@medusajs/medusa"
 import { medusaClient } from "@lib/config"
-import { mainCategoryId } from "constants/database"
 
 type ScreenType = "main" | "country" | "search"
 
@@ -58,7 +57,7 @@ export const MobileMenuProvider = ({
 
   useEffect(() => {
     medusaClient.productCategories
-      .list({ parent_category_id: mainCategoryId, include_descendants_tree: true })
+      .list({ parent_category_id: 'null', include_descendants_tree: true })
       .then(({ product_categories }) => setCategories(product_categories))
       .catch(error => console.log(error))
   }, [])
