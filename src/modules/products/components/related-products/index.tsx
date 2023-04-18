@@ -20,14 +20,6 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
   const queryParams: StoreGetProductsParams = useMemo(() => {
     const params: StoreGetProductsParams = {}
 
-    if (cart?.id) {
-      params.cart_id = cart.id
-    }
-
-    if (product.collection_id) {
-      params.collection_id = [product.collection_id]
-    }
-
     if (product.tags) {
       params.tags = product.tags.map((t) => t.value)
     }
