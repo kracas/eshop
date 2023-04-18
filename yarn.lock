@@ -569,23 +569,23 @@
     winston "^3.8.2"
     yargs "^15.3.1"
 
-"@medusajs/medusa-js@^1.3.7", "@medusajs/medusa-js@^1.3.8":
-  version "1.3.10"
-  resolved "https://registry.yarnpkg.com/@medusajs/medusa-js/-/medusa-js-1.3.10.tgz#592c2cb28941a57a202d7c0b7ca43c0a2db9c977"
-  integrity sha512-2R9G19a/Ohx+lsN46jBi+XHyCoq9HfTso89fmkkKsqDVkgw76qKwZRqspZpWVpPDlRPx52yBQ5Stnb0SVqxjZA==
+"@medusajs/medusa-js@2.0.2", "@medusajs/medusa-js@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@medusajs/medusa-js/-/medusa-js-2.0.2.tgz#bf6731eb1652b6352ad20880e2aad20fdbc1adf1"
+  integrity sha512-WMmBmiKIW299hPQA58K5LSL/ISufYI67p0TQD7xMeYJ79BcXeIi4LpxgybR7RjVYsFVCblt15cmqSe5fOrqSSw==
   dependencies:
     axios "^0.24.0"
     qs "^6.10.3"
     retry-axios "^2.6.0"
     uuid "^9.0.0"
 
-"@medusajs/medusa@^1.7.5":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@medusajs/medusa/-/medusa-1.8.1.tgz#a70d3aab9c0c668f820a5356957e72b23aaa4dd9"
-  integrity sha512-QLMNittPhyq0DwgGemh+Vulk/UCe2QADKu6AdesEweC3tdwv72py/uH/udkoSXxnyqbGQfphAjkdRliihhAS7w==
+"@medusajs/medusa@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@medusajs/medusa/-/medusa-1.8.2.tgz#f0b3f76e1cce931cfc3fcb2524bce73a5d0bd6ee"
+  integrity sha512-nt57W5BaaMMfXiRfwrnwZrETxinLdw9nDKcujwHIdQx7ex2jpbUxg/F9YyOpp+3eZY34YUrSjCeHOsg9Xyp1Bw==
   dependencies:
     "@medusajs/medusa-cli" "1.3.10"
-    "@medusajs/modules-sdk" "1.8.1"
+    "@medusajs/modules-sdk" "1.8.2"
     "@medusajs/utils" "1.8.1"
     "@types/ioredis" "^4.28.10"
     "@types/lodash" "^4.14.191"
@@ -596,6 +596,7 @@
     chokidar "^3.4.2"
     class-transformer "^0.5.1"
     class-validator "^0.13.2"
+    compression "^1.7.4"
     connect-redis "^5.0.0"
     cookie-parser "^1.4.6"
     core-js "^3.6.5"
@@ -632,22 +633,22 @@
     uuid "^8.3.2"
     winston "^3.8.2"
 
-"@medusajs/modules-sdk@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@medusajs/modules-sdk/-/modules-sdk-1.8.1.tgz#263504fea082496ee8c2da9287f0f03fb566a286"
-  integrity sha512-hUks1L/TtToXXUsONPMvChffJgQM93DsetJXy3FKhuY6hs0NjV2TogfIE+qtokzQ5eE+iKYNYNg8F91dVNoA7g==
+"@medusajs/modules-sdk@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@medusajs/modules-sdk/-/modules-sdk-1.8.2.tgz#47a6c656f53d3e76a3a802ab46f977ddd0493f74"
+  integrity sha512-6San8uC11VqrnHWX+Bu5ub2dQHRnr+jB/G1QsXO1ZCEqbgtiLw8PjDTQqKj10R8eFo2miHzaDSv153JrLFR8ag==
   dependencies:
-    "@medusajs/types" "1.8.1"
+    "@medusajs/types" "1.8.2"
     "@medusajs/utils" "1.8.1"
     awilix "^8.0.0"
     glob "7.1.6"
     medusa-telemetry "^0.0.16"
     resolve-cwd "^3.0.0"
 
-"@medusajs/types@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@medusajs/types/-/types-1.8.1.tgz#b599d01c4bfe372046941993b6369a4c1bc9053a"
-  integrity sha512-iZ9cKrHTBDT8LNL7kXFRe0JD+sSVXrF5COZd+Q/uompMoTzwk/iQ/vWihMaIpXM+MRUazB6L1KpAJ8p26M6OJA==
+"@medusajs/types@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@medusajs/types/-/types-1.8.2.tgz#0d2d1aa0ad759122b6a1e386a2a85fdee94a879d"
+  integrity sha512-WV2hGYQBc0gg6GEq1he5dGkHyBcO0Wdxaul/m4M1I43l1dRa+O3BWx1VBu90qVNXvD4T5f0hakVQ1z2y4jEIWg==
 
 "@medusajs/utils@1.8.1":
   version "1.8.1"
@@ -1323,7 +1324,7 @@ abbrev@1:
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
   integrity sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
 
-accepts@~1.3.8:
+accepts@~1.3.5, accepts@~1.3.8:
   version "1.3.8"
   resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.8.tgz#0bf0be125b67014adcb0b0921e62db7bffe16b2e"
   integrity sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==
@@ -1902,6 +1903,11 @@ busboy@^0.2.11:
     dicer "0.2.5"
     readable-stream "1.1.x"
 
+bytes@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
+  integrity sha512-pMhOfFDPiv9t5jjIXkHosWmkSyQbvsgEVNkz0ERHbuLh2T/7j4Mqqpz523Fe8MVY89KC6Sh/QfS2sM+SjgFDcw==
+
 bytes@3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.2.tgz#8b0beeb98605adf1b128fa4386403c009e0221a5"
@@ -2311,6 +2317,26 @@ commondir@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==
+
+compressible@~2.0.16:
+  version "2.0.18"
+  resolved "https://registry.yarnpkg.com/compressible/-/compressible-2.0.18.tgz#af53cca6b070d4c3c0750fbd77286a6d7cc46fba"
+  integrity sha512-AF3r7P5dWxL8MxyITRMlORQNaOA2IkAFaTr4k7BUumjPtRpGDTZpl0Pb1XCO6JeDCBdp126Cgs9sMxqSjgYyRg==
+  dependencies:
+    mime-db ">= 1.43.0 < 2"
+
+compression@^1.7.4:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/compression/-/compression-1.7.4.tgz#95523eff170ca57c29a0ca41e6fe131f41e5bb8f"
+  integrity sha512-jaSIDzP9pZVS4ZfQ+TzvtiWhdpFhE2RDHz8QJkpX9SIpLq88VueF5jJw6t+6CUQcAoA6t+x89MLrWAqpfDE8iQ==
+  dependencies:
+    accepts "~1.3.5"
+    bytes "3.0.0"
+    compressible "~2.0.16"
+    debug "2.6.9"
+    on-headers "~1.0.2"
+    safe-buffer "5.1.2"
+    vary "~1.1.2"
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -4780,12 +4806,12 @@ medusa-core-utils@^1.1.31, medusa-core-utils@^1.2.0:
   resolved "https://registry.yarnpkg.com/medusa-core-utils/-/medusa-core-utils-1.2.0.tgz#4a2aa9fd63dacda487b220c8e462540990605092"
   integrity sha512-9mzXGkMsll92C46Ub8A9vwjcfFiHfdkgshwmPP9QpRrm02M6N+SQb45S2A9t0dKjyT9J7rgCCSrFhYQg3pvqbw==
 
-medusa-react@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/medusa-react/-/medusa-react-4.0.4.tgz#84f96dc1e613b1979e7534758b6c72fd26c87317"
-  integrity sha512-0epeLgDZ+A2jtd9SCzaXrLhUSbzRr0osgmdABFBD4zPCr0qSAH+WaWCXAdEEQbb5SlwgvnVpJ+Ly4Iw1xj73mg==
+medusa-react@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/medusa-react/-/medusa-react-5.0.2.tgz#d525ac5291d96984c05b3388447472440978e52c"
+  integrity sha512-ZBzwPjMVyA5LDHciJLOyMAUbC0wRdRi9WGl4bXDct7yN5kzPFzI9M8YFqzqh1KFU4Gu6e9xvE1vcdvb85SM0Ig==
   dependencies:
-    "@medusajs/medusa-js" "^1.3.8"
+    "@medusajs/medusa-js" "2.0.2"
 
 medusa-telemetry@0.0.16, medusa-telemetry@^0.0.16:
   version "0.0.16"
@@ -4846,7 +4872,7 @@ micromatch@^4.0.4, micromatch@^4.0.5:
     braces "^3.0.2"
     picomatch "^2.3.1"
 
-mime-db@1.52.0:
+mime-db@1.52.0, "mime-db@>= 1.43.0 < 2":
   version "1.52.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.52.0.tgz#bbabcdc02859f4987301c856e3387ce5ec43bf70"
   integrity sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==
