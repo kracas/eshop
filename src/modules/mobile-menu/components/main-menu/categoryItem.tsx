@@ -32,7 +32,7 @@ const CategoryItem: React.FC<{ category: ProductCategory, depth: number, keyId: 
       <li key={keyId}>
 
         <div className={`flex items-center justify-between bg-gray-50 p-4 ml-${depth * 2}`}>
-          <Link href={`/category/${category.handle}`}>
+          <Link href={`/categories/${category.handle}`}>
             <a onClick={close}>
               <span>{category.name}</span>
             </a>
