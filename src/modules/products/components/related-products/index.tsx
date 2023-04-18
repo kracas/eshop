@@ -21,13 +21,13 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
     const params: StoreGetProductsParams = {}
 
     if (product.tags) {
-      params.tags = product.tags.map((t) => t.value)
+      params.tags = product.tags.map((t) => t.id)
     }
 
     params.is_giftcard = false
 
     return params
-  }, [product, cart?.id])
+  }, [product])
 
   const { data, hasNextPage, fetchNextPage, isLoading, isFetchingNextPage } =
     useInfiniteQuery(
@@ -52,11 +52,14 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
       </div>
 
       <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-4 gap-y-8">
-        {previews.map((p) => (
-          <li key={p.id}>
-            <ProductPreview {...p} />
-          </li>
-        ))}
+        {previews.map((p) => {
+          if (p.id === product.id) return
+          return (
+            <li key={p.id}>
+              <ProductPreview {...p} />
+            </li>
+          )
+        })}
         {isLoading &&
           !previews.length &&
           repeat(8).map((index) => (
