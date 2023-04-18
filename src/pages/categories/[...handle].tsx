@@ -113,9 +113,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   }
 
-  console.log(category)
-
-
   await queryClient.prefetchInfiniteQuery(
     ["get_category_products", category.id],
     ({ pageParam }) => fetchCategoryProducts({ pageParam, id: category.id }),

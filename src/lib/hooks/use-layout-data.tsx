@@ -51,7 +51,6 @@ const fetchFeaturedProducts = async (
   cartId: string,
   region: Region
 ): Promise<ProductPreviewType[]> => {
-  console.log('TEST')
   const products = await medusaClient.products
     .list({
       is_giftcard: false,
@@ -60,7 +59,6 @@ const fetchFeaturedProducts = async (
     })
     .then(({ products }) => products)
     .catch((_) => [] as Product[])
-  console.log(products)
 
   return products
     .filter((p) => !!p.variants)
