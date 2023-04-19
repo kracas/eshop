@@ -19,6 +19,8 @@ const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
   const { variant, addToCart, options, inStock, updateOptions } = useProductActions()
   const { state, open, close } = useToggleState()
 
+  const isOptions = Object.keys(options).length > 0
+
   const price = useProductPrice({ id: product.id, variantId: variant?.id })
 
   const selectedPrice = useMemo(() => {
@@ -69,8 +71,8 @@ const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
                 <div></div>
               )}
             </div>
-            <div className="grid grid-cols-2 w-full gap-x-4">
-              <Button onClick={open} variant="secondary">
+            <div className={clsx("grid w-full gap-x-4", { "grid-cols-2": isOptions })}>
+              {isOptions && <Button onClick={open} variant="secondary">
                 <div className="flex items-center justify-between w-full">
                   <span>
                     {variant
@@ -79,7 +81,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
                   </span>
                   <ChevronDown />
                 </div>
-              </Button>
+              </Button>}
               <Button onClick={addToCart}>{!inStock ? "Out of stock" : "Add to cart"}</Button>
             </div>
           </div>
