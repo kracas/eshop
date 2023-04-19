@@ -151,7 +151,7 @@ const StripePaymentButton = ({
         disabled={submitting || disabled || notReady}
         onClick={handlePayment}
       >
-        {submitting ? <Spinner /> : "Checkout"}
+        {submitting ? <Spinner /> : "Pay with Card"}
       </Button>
       {errorMessage && (
         <div className="text-red-500 text-small-regular mt-2">
@@ -211,7 +211,7 @@ const PayPalPaymentButton = ({
         <span className="text-rose-500 mt-4">{errorMessage}</span>
       )}
       <PayPalButtons
-        style={{ layout: "horizontal" }}
+        style={{ layout: "horizontal", tagline: false, color: 'black', }}
         createOrder={async () => session.data.id as string}
         onApprove={handlePayment}
         disabled={notReady || submitting}
