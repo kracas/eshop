@@ -6,10 +6,10 @@ import { useState, useEffect } from "react"
 import Slide from "./slide"
 import Dots from "./dots"
 
-import bracelets from "@assets/Cover-bracelets-scaled.jpg"
-import heart from "@assets/Cover-heart-colection-scaled.jpg"
-import necklaces from "@assets/Cover-necklaces-scaled.jpg"
-import gemstones from "@assets/Cover-gemstones.jpg"
+import bracelets from "@assets/Cover-bracelets-scaled.webp"
+import heart from "@assets/Cover-heart-colection-scaled.webp"
+import necklaces from "@assets/Cover-necklaces-scaled.webp"
+import gemstones from "@assets/Cover-gemstones.webp"
 
 const Hero = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 6500, stopOnInteraction: false })]);

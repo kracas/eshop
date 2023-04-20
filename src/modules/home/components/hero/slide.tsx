@@ -16,13 +16,12 @@ const Slide: React.FC<{ image: StaticImageData, text: string, linkText: string }
         <Image
           src={image}
           layout="fill"
-          loading="eager"
-          priority={true}
           objectFit="cover"
-          alt=""
+          alt="Product photo in hero"
           className="absolute inset-0"
           draggable="false"
           unoptimized
+          placeholder="blur"
         />
       </div>
     </div>
