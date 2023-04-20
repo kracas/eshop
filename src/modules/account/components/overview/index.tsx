@@ -1,8 +1,10 @@
 import { Customer, Order } from "@medusajs/medusa"
+import { useAccount } from "@lib/context/account-context"
 import ChevronDown from "@modules/common/icons/chevron-down"
 import MapPin from "@modules/common/icons/map-pin"
 import Package from "@modules/common/icons/package"
 import User from "@modules/common/icons/user"
+import X from "@modules/common/icons/x"
 import { formatAmount } from "medusa-react"
 import Link from "next/link"
 
@@ -12,6 +14,8 @@ type OverviewProps = {
 }
 
 const Overview = ({ orders, customer }: OverviewProps) => {
+  const { handleLogout } = useAccount()
+
   return (
     <div>
       <div className="small:hidden">
@@ -52,6 +56,15 @@ const Overview = ({ orders, customer }: OverviewProps) => {
                   <ChevronDown className="transform -rotate-90" />
                 </a>
               </Link>
+            </li>
+            <li>
+              <a className="flex items-center justify-between py-4 border-b border-gray-200 px-8 cursor-pointer" onClick={handleLogout}>
+                <div className="flex items-center gap-x-2">
+                  <X size={16} />
+                  <span>Logout</span>
+                </div>
+                <ChevronDown className="transform -rotate-90" />
+              </a>
             </li>
           </ul>
         </div>
