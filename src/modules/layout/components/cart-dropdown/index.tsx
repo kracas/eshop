@@ -20,7 +20,7 @@ const CartDropdown = () => {
   return (
     <div className="h-full z-50" onMouseEnter={open} onMouseLeave={close}>
       <Popover className="relative h-full">
-        <Link href="/cart" passHref>
+        <Link legacyBehavior href="/cart" passHref>
           <Popover.Button className="h-full">
             <div className="mr-2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -71,7 +71,7 @@ const CartDropdown = () => {
                             <div className="flex items-start justify-between">
                               <div>
                                 <h3 className="text-base-regular overflow-ellipsis overflow-hidden whitespace-nowrap mr-4 w-[130px]">
-                                  <Link
+                                  <Link legacyBehavior
                                     href={`/products/${item.variant.product.handle}`}
                                   >
                                     <a>{item.title}</a>
@@ -118,7 +118,7 @@ const CartDropdown = () => {
                       })}
                     </span>
                   </div>
-                  <Link href="/cart" passHref>
+                  <Link legacyBehavior href="/cart" passHref>
                     <a>
                       <Button>Go to bag</Button>
                     </a>
@@ -133,7 +133,7 @@ const CartDropdown = () => {
                   </div>
                   <span>Your shopping bag is empty.</span>
                   <div>
-                    <Link href="/store">
+                    <Link legacyBehavior href="/store">
                       <a>
                         <span className="sr-only">Go to all products page</span>
                         <Button onClick={close}>Explore products</Button>

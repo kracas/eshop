@@ -9,7 +9,7 @@ const MenuItem: React.FC<{ title: string, items: { title: string, url: string }[
       <ul className="grid grid-cols-1 gap-y-2">
         {items.map((item, index) =>
           <li key={`${title}-${index}`}>
-            <Link href={item.url}>
+            <Link legacyBehavior href={item.url}>
               <a>
                 {item.title}
               </a>

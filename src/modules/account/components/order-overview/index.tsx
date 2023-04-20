@@ -37,7 +37,7 @@ const OrderOverview = () => {
         You don&apos;t have any orders yet, let us change that {":)"}
       </p>
       <div className="mt-4">
-        <Link href="/" passHref>
+        <Link legacyBehavior href="/" passHref>
           <Button>Continue shopping</Button>
         </Link>
       </div>

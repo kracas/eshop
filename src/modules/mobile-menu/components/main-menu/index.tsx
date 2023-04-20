@@ -8,7 +8,7 @@ import { useCollections, useMeCustomer } from "medusa-react"
 import Link from "next/link"
 import ReactCountryFlag from "react-country-flag"
 import CategoryItem from "./categoryItem"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import logo from "@assets/logo.png"
 
 const MainMenu = () => {
@@ -68,7 +68,7 @@ const MainMenu = () => {
               <>
                 {collections.map((collection) => (
                   <li key={collection.id} className="bg-gray-50 p-4">
-                    <Link href={`/collections/${collection.id}`}>
+                    <Link legacyBehavior href={`/collections/${collection.id}`}>
                       <a>
                         <button
                           className="flex items-center justify-between w-full"
@@ -97,7 +97,7 @@ const MainMenu = () => {
             {!customer ? (
               <div className="flex flex-col gap-y-4">
                 <span className="text-gray-700 uppercase">Account</span>
-                <Link href={`/account/login`} passHref>
+                <Link legacyBehavior href={`/account/login`} passHref>
                   <a>
                     <button
                       className="flex items-center justify-between border-b border-gray-200 py-2 w-full"
@@ -113,7 +113,7 @@ const MainMenu = () => {
             ) : (
               <div className="flex flex-col gap-y-4">
                 <span className="text-gray-700 uppercase">Signed in as</span>
-                <Link href={`/account`} passHref>
+                <Link legacyBehavior href={`/account`} passHref>
                   <a>
                     <button
                       className="flex items-center justify-between border-b border-gray-200 py-2 w-full"

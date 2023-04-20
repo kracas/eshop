@@ -25,7 +25,7 @@ const Overview = ({ orders, customer }: OverviewProps) => {
         <div className="text-base-regular">
           <ul>
             <li>
-              <Link href="/account/profile">
+              <Link legacyBehavior href="/account/profile">
                 <a className="flex items-center justify-between py-4 border-b border-gray-200 px-8">
                   <div className="flex items-center gap-x-2">
                     <User size={16} />
@@ -36,7 +36,7 @@ const Overview = ({ orders, customer }: OverviewProps) => {
               </Link>
             </li>
             <li>
-              <Link href="/account/addresses">
+              <Link legacyBehavior href="/account/addresses">
                 <a className="flex items-center justify-between py-4 border-b border-gray-200 px-8">
                   <div className="flex items-center gap-x-2">
                     <MapPin size={16} />
@@ -47,7 +47,7 @@ const Overview = ({ orders, customer }: OverviewProps) => {
               </Link>
             </li>
             <li>
-              <Link href="/account/orders">
+              <Link legacyBehavior href="/account/orders">
                 <a className="flex items-center justify-between py-4 border-b border-gray-200 px-8">
                   <div className="flex items-center gap-x-2">
                     <Package size={16} />
@@ -115,7 +115,7 @@ const Overview = ({ orders, customer }: OverviewProps) => {
                   orders.slice(0, 5).map((order) => {
                     return (
                       <li key={order.id}>
-                        <Link href={`/order/details/${order.id}`}>
+                        <Link legacyBehavior href={`/order/details/${order.id}`}>
                           <a>
                             <div className="bg-gray-50 flex justify-between items-center p-4">
                               <div className="grid grid-cols-3 grid-rows-2 text-small-regular gap-x-4 flex-1">

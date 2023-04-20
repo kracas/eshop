@@ -29,7 +29,7 @@ const DropdownMenu = () => {
       <div className="flex items-center h-full">
         <Popover className="h-full flex">
           <>
-            <Link href="/shop" passHref>
+            <Link legacyBehavior href="/shop" passHref>
               <a className="relative flex h-full">
                 <Popover.Button
                   className={clsx(
@@ -73,7 +73,7 @@ const DropdownMenu = () => {
                                 {chunk.map((collection) => {
                                   return (
                                     <div key={collection.id} className="pb-3">
-                                      <Link
+                                      <Link legacyBehavior
                                         href={`/collections/${collection.id}`}
                                       >
                                         <a onClick={() => setOpen(false)}>

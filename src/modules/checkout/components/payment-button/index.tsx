@@ -211,7 +211,7 @@ const PayPalPaymentButton = ({
         <span className="text-rose-500 mt-4">{errorMessage}</span>
       )}
       <PayPalButtons
-        style={{ layout: "horizontal", tagline: false, color: 'black', }}
+        style={{ layout: "vertical", tagline: false, color: 'black', }}
         createOrder={async () => session.data.id as string}
         onApprove={handlePayment}
         disabled={notReady || submitting}

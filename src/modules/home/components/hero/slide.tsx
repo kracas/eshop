@@ -1,6 +1,6 @@
 import UnderlineLink from "@modules/common/components/underline-link"
-import Image from "next/image"
-import { StaticImageData } from "next/image"
+import Image from "next/legacy/image"
+import { StaticImageData } from "next/legacy/image"
 
 const Slide: React.FC<{ image: StaticImageData, text: string, linkText: string }> = ({ image, text, linkText }) => {
 

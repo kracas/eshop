@@ -29,7 +29,7 @@ const Items = ({ items, region, cartId }: ItemsProps) => {
                     <div className="flex items-start justify-between">
                       <div>
                         <h3 className="text-base-regular overflow-ellipsis overflow-hidden whitespace-nowrap mr-4">
-                          <Link
+                          <Link legacyBehavior
                             href={`/products/${item.variant.product.handle}`}
                           >
                             <a>{item.title}</a>

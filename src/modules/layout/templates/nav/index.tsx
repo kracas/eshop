@@ -10,7 +10,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import logo from "@assets/logo.png"
 
 const Nav = () => {
@@ -25,8 +25,8 @@ const Nav = () => {
     >
       <div className="overflow-hidden text-center text-sm py-2 bg-black text-white" ref={emblaRef}>
         <div className="flex">
-          <div className="relative flex-[0_0_100%]"><Link href='/'><a>FREE WORLDWIDE SHIPPING ON ORDERS OVER €200</a></Link></div>
-          <div className="relative flex-[0_0_100%]"><Link href='/'><a>FREE EUROPEAN SHIPPING ON ORDERS OVER €100</a></Link></div>
+          <div className="relative flex-[0_0_100%]"><Link legacyBehavior href='/'><a>FREE WORLDWIDE SHIPPING ON ORDERS OVER €200</a></Link></div>
+          <div className="relative flex-[0_0_100%]"><Link legacyBehavior href='/'><a>FREE EUROPEAN SHIPPING ON ORDERS OVER €100</a></Link></div>
         </div>
       </div>
       <header
@@ -45,7 +45,7 @@ const Nav = () => {
           </div>
 
           <div className="flex items-center h-full w-full relative">
-            <Link href="/">
+            <Link legacyBehavior href="/">
               <a>
                 <Image src={logo} objectFit="contain" alt="" layout="fill" />
               </a>
@@ -55,7 +55,7 @@ const Nav = () => {
           <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
             <div className="hidden small:flex items-center gap-x-6 h-full">
               {process.env.FEATURE_SEARCH_ENABLED && <DesktopSearchModal />}
-              <Link href="/account">
+              <Link legacyBehavior href="/account">
                 <a>Account</a>
               </Link>
             </div>

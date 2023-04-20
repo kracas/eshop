@@ -99,11 +99,11 @@ const Register = () => {
         )}
         <span className="text-center text-gray-700 text-small-regular mt-6">
           By creating an account, you agree to ForeverSeptember&apos;s{" "}
-          <Link href="/privacy">
+          <Link legacyBehavior href="/privacy">
             <a className="underline">Privacy Policy</a>
           </Link>{" "}
           and{" "}
-          <Link href="/terms">
+          <Link legacyBehavior href="/terms">
             <a className="underline">Terms of Use</a>
           </Link>
           .

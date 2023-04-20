@@ -4,7 +4,7 @@ import Link from "next/link"
 import CheckoutLoader from "../components/checkout-loader"
 import CheckoutForm from "./checkout-form"
 import CheckoutSummary from "./checkout-summary"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import logo from "@assets/logo.png"
 
 const CheckoutTemplate = () => {
@@ -13,7 +13,7 @@ const CheckoutTemplate = () => {
       <div className="bg-gray-100 relative small:min-h-screen">
         <div className="h-16 bg-white">
           <nav className="flex items-center h-full justify-between content-container">
-            <Link href="/cart">
+            <Link legacyBehavior href="/cart">
               <a className="text-small-semi text-gray-700 flex items-center gap-x-2 uppercase flex-1 basis-0">
                 <ChevronDown className="rotate-90" size={16} />
                 <span className="mt-px hidden small:block">
@@ -22,7 +22,7 @@ const CheckoutTemplate = () => {
                 <span className="mt-px block small:hidden">Back</span>
               </a>
             </Link>
-            <Link href="/">
+            <Link legacyBehavior href="/">
               <a className="text-xl-semi flex relative w-full h-12">
                 <Image src={logo} objectFit="contain" alt="" layout="fill" />
               </a>
