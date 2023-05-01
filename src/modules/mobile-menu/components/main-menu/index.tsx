@@ -40,7 +40,7 @@ const MainMenu = () => {
           </button>
         </div>
         <div className="flex relative w-full h-12">
-          <Image src={logo} objectFit="contain" alt="" layout="fill" />
+          <Link href="/" onClick={close}><Image src={logo} objectFit="contain" alt="" layout="fill" /></Link>
         </div>
         <div className="flex-1 basis-0 flex justify-end">
           <button onClick={close}>
