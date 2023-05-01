@@ -5,8 +5,8 @@ const FooterNav = () => {
 
   return (
     <div className="content-container flex flex-col gap-y-8 pt-10 pb-8">
-      <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between">
-        <div className="text-small-regular grid grid-cols-2 gap-x-10 gap-y-6">
+      <div className="flex flex-col gap-y-6 xsmall:flex-row justify-center">
+        <div className="text-small-regular grid sm:grid-cols-3 grid-cols-2 gap-x-10 gap-y-6">
           <MenuItem
             title='About us'
             items={[
