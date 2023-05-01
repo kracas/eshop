@@ -39,10 +39,10 @@ const Hero = () => {
     <>
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          <Slide image={bracelets} text="Stack them your own way" linkText="Get started" />
-          <Slide image={heart} text="TO ALL OF THEM WHO WE LOVE THE MOST" linkText="Shop heart collection" />
-          <Slide image={necklaces} text="ONE MORE NECKLACE WILL NOT HARM ANYONE" linkText="Shop now" />
-          <Slide image={gemstones} text="FIND YOUR FAVORITE GEMSTONE" linkText="Shop now" />
+          <Slide image={gemstones} text="FIND YOUR FAVORITE GEMSTONE" linkText="Shop now" linkUrl="/categories/shop-by-gemstone" />
+          <Slide image={heart} text="TO ALL OF THEM WHO WE LOVE THE MOST" linkText="Shop heart collection" linkUrl="/categories/women/heart" />
+          <Slide image={bracelets} text="Stack them your own way" linkText="Get started" linkUrl="/categories/women/bracelets" />
+          <Slide image={necklaces} text="ONE MORE NECKLACE WILL NOT HARM ANYONE" linkText="Shop now" linkUrl="/categories/women/short-necklaces" />
         </div>
       </div>
       <Dots itemsLength={4} selectedIndex={selectedIndex} scrollTo={scrollTo} />
