@@ -2,7 +2,7 @@ import UnderlineLink from "@modules/common/components/underline-link"
 import Image from "next/legacy/image"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Slide from "./slide"
 import Dots from "./dots"
 
@@ -30,6 +30,11 @@ const Hero = () => {
     };
   }, [emblaApi]);
 
+  const scrollTo = useCallback(
+    (index: number) => emblaApi && emblaApi.scrollTo(index),
+    [emblaApi]
+  );
+
   return (
     <>
       <div className="overflow-hidden" ref={emblaRef}>
@@ -40,7 +45,7 @@ const Hero = () => {
           <Slide image={gemstones} text="FIND YOUR FAVORITE GEMSTONE" linkText="Shop now" />
         </div>
       </div>
-      <Dots itemsLength={4} selectedIndex={selectedIndex} />
+      <Dots itemsLength={4} selectedIndex={selectedIndex} scrollTo={scrollTo} />
     </>
 
   )
