@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query"
 import { formatAmount, useCart } from "medusa-react"
 import { ProductPreviewType } from "types/global"
 import { CalculatedVariant } from "types/medusa"
-import { favoritesCollectionId } from "constants/database"
 
 type LayoutCollection = {
   id: string
@@ -55,7 +54,7 @@ const fetchFeaturedProducts = async (
     .list({
       is_giftcard: false,
       cart_id: cartId,
-      collection_id: [favoritesCollectionId],
+      collection_id: [process.env.NEXT_PUBLIC_FAVORITES_CATEGORY_ID || ''],
     })
     .then(({ products }) => products)
     .catch((_) => [] as Product[])
