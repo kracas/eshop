@@ -1,4 +1,5 @@
 import { medusaClient } from "../config"
+import { ProductCategory } from "@medusajs/medusa"
 
 export const getCategoryHandles = async (): Promise<string[]> => {
   const categories = await medusaClient.productCategories
@@ -7,10 +8,19 @@ export const getCategoryHandles = async (): Promise<string[]> => {
 
   const handles: string[] = []
 
-  for (const category of categories) {
+  const getHandles = (category: ProductCategory) => {
     if (category.handle) {
       handles.push(category.handle)
     }
+    if (category.category_children) {
+      for (const child of category.category_children) {
+        getHandles(child)
+      }
+    }
+  }
+
+  for (const category of categories) {
+    getHandles(category)
   }
 
   return handles
