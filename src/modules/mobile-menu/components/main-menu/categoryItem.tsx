@@ -31,23 +31,28 @@ const CategoryItem: React.FC<{ category: ProductCategory, depth: number, keyId: 
     <>
       <li key={keyId}>
 
-        <div className={`flex items-center justify-between bg-gray-50 p-4 ml-${depth * 2}`}>
-          <Link legacyBehavior href={`/categories/${category.handle}`}>
-            <a onClick={close}>
-              <span>{category.name}</span>
-            </a>
-          </Link>
+        <div className={`p-4 ml-${depth * 2} w-full`}>
+          {category_children.length === 0 &&
+            <Link legacyBehavior href={`/categories/${category.handle}`}>
+              <a onClick={close}>
+                <div className={clsx(depth === 0 && "uppercase w-full")}>{category.name}</div>
+              </a>
+            </Link>}
           {category_children.length > 0 &&
             <button
-              className="items-center"
+              className="items-center w-full"
               onClick={onCategoryClick}
             >
-              <ChevronDown className={clsx(!isOpen && "-rotate-90")} />
+              <div className={`flex items-center justify-between`}>
+                <span className={clsx(depth === 0 && "uppercase")}>{category.name}</span>
+                <ChevronDown className={clsx(!isOpen && "-rotate-90")} />
+              </div >
             </button>
           }
         </div>
 
       </li>
+
       {isOpen && category_children.map(category_child =>
         <CategoryItem key={'cat_' + category_child.id} keyId={category_child.id} category={category_child} depth={depth + 1} />
       )}
