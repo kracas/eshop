@@ -63,11 +63,11 @@ const MainMenu = () => {
         )}
 
         <div className="flex flex-col flex-1 text-large-regular text-gray-900">
-          <ul className="flex flex-col">
+          <ul className="flex flex-col [&>*]:p-2">
             {collections ? (
               <>
                 {collections.map((collection) => (
-                  <li key={collection.id} className="p-4">
+                  <li key={collection.id}>
                     <Link legacyBehavior href={`/collections/${collection.id}`}>
                       <a>
                         <button

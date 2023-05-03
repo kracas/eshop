@@ -31,7 +31,7 @@ const CategoryItem: React.FC<{ category: ProductCategory, depth: number, keyId: 
     <>
       <li key={keyId}>
 
-        <div className={`p-4 ml-${depth * 2} w-full`}>
+        <div className={`ml-${depth * 2} w-full`}>
           {category_children.length === 0 &&
             <Link legacyBehavior href={`/categories/${category.handle}`}>
               <a onClick={close}>
