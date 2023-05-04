@@ -3,10 +3,11 @@ const store = require("./store.config.json")
 
 module.exports = withStoreConfig({
   features: store.features,
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: ["medusa-public-images.s3.eu-west-1.amazonaws.com", "localhost", "backend.forever-september.com"],
   },
+  experimental: {
+    isrMemoryCacheSize: 0,
+  },
 })
-
-console.log("next.config.js", JSON.stringify(module.exports, null, 2))
