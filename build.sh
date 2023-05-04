@@ -4,7 +4,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-cd ~/storefront
+cd ~/store/storefront
 
 tar -xzf storefront.tar.gz || exit 1
 printf -v date '%(%Y%m%d%H%M)T\n' -1 
