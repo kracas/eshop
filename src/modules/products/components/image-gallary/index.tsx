@@ -1,71 +1,54 @@
 import { Image as MedusaImage } from "@medusajs/medusa"
-import Image from "next/legacy/image"
-import { useRef } from "react"
+import { useRef, useState, useCallback, useEffect } from "react"
+import useEmblaCarousel from "embla-carousel-react"
+import Slide from "./slide"
+import Dots from "./dots"
 
 type ImageGalleryProps = {
   images: MedusaImage[]
 }
 
 const ImageGallery = ({ images }: ImageGalleryProps) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  useEffect(() => {
+    function selectHandler() {
+      // selectedScrollSnap gives us the current selected index.
+      const index = emblaApi?.selectedScrollSnap();
+      setSelectedIndex(index || 0);
+    }
+
+    emblaApi?.on("select", selectHandler);
+    // cleanup
+    return () => {
+      emblaApi?.off("select", selectHandler);
+    };
+  }, [emblaApi]);
+
+  const scrollTo = useCallback(
+    (index: number) => emblaApi && emblaApi.scrollTo(index),
+    [emblaApi]
+  );
+
   const imageRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  const handleScrollTo = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest",
-      })
-    }
-  }
 
   return (
-    <div className="flex items-start relative">
-      <div className="hidden small:flex flex-col gap-y-4 sticky top-20">
-        {images.map((image, index) => {
-          return (
-            <button
-              key={image.id}
-              className="h-14 w-12 relative border border-white"
-              onClick={() => {
-                handleScrollTo(image.id)
-              }}
-            >
-              <span className="sr-only">Go to image {index + 1}</span>
-              <Image
-                src={image.url}
-                layout="fill"
-                objectFit="cover"
-                className="absolute inset-0"
-                alt="Thumbnail"
-              />
-            </button>
-          )
-        })}
+    <>
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex">
+          {images.map((image, index) => {
+            return (
+              <Slide key={image.id} image={image} index={index} />
+            )
+          })}
+        </div>
+
+
       </div>
-      <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
-        {images.map((image, index) => {
-          return (
-            <div
-              ref={(image) => imageRefs.current.push(image)}
-              key={image.id}
-              className="relative aspect-[29/34] w-full"
-              id={image.id}
-            >
-              <Image
-                src={image.url}
-                layout="fill"
-                objectFit="cover"
-                priority={index <= 2 ? true : false}
-                className="absolute inset-0"
-                alt={`Product image ${index + 1}`}
-              />
-            </div>
-          )
-        })}
-      </div>
-    </div>
+      <div><Dots itemsLength={images.length} selectedIndex={selectedIndex} scrollTo={scrollTo} /></div>
+    </>
   )
 }
 
