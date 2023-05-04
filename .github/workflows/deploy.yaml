@@ -25,13 +25,13 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           touch ~/.ssh/authorized_keys
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
 
       - name: Create archive
         run: tar -czf storefront.tar.gz storefront
 
       - name: Copy to remote
-        run: rsync -avz -e 'ssh -p ${{ secrets.SSH_PORT }}' storefront.tar.gz ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.TARGET_DIRECTORY }}
+        run: rsync -avz storefront.tar.gz ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.TARGET_DIRECTORY }}
 
       - name: Build and deploy on remote
-        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} ${{ secrets.TARGET_DIRECTORY }}/build.sh
+        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'bash -s' < storefront/build.sh
