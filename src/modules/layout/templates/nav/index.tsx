@@ -38,8 +38,8 @@ const Nav = () => {
         <nav
           className="text-gray-900 flex flex-col items-center justify-between w-full h-full text-small-regular transition-colors duration-200"
         >
-          <div className="text-gray-900 flex items-center justify-between w-full h-full text-small-regular transition-colors duration-200">
-            <div className="flex-1 basis-0 h-full flex items-center">
+          <div className="text-gray-900 grid grid-cols-[80px_auto_80px] small:grid-cols-[150px_auto_150px] w-full h-full text-small-regular transition-colors duration-200">
+            <div className="h-full flex items-center">
               <div className="block small:hidden">
                 <Hamburger setOpen={toggle} />
               </div>
