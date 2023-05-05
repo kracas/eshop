@@ -4,29 +4,32 @@ import CartDropdown from "@modules/layout/components/cart-dropdown"
 import DropdownMenu from "@modules/layout/components/dropdown-menu"
 import MobileMenu from "@modules/mobile-menu/templates"
 import DesktopSearchModal from "@modules/search/templates/desktop-search-modal"
-import clsx from "clsx"
 import Link from "next/link"
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { useRef } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/legacy/image"
 import logo from "@assets/logo.png"
+import isBreakpoint from "@lib/util/isBreakpoint"
 
 const Nav = () => {
 
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000, stopOnInteraction: false })]);
 
+  const noEmblaRef = useRef(null);
+
   const { toggle } = useMobileMenu()
+
+  const isSmallScreen = isBreakpoint('small');
 
   return (
     <div
       className="sticky top-0 inset-x-0 z-50 group"
     >
-      <div className="overflow-hidden text-center text-sm py-2 bg-black text-white" ref={emblaRef}>
-        <div className="flex">
-          <div className="relative flex-[0_0_100%]"><Link legacyBehavior href='/shipping'><a>FREE WORLDWIDE SHIPPING ON ORDERS OVER €200</a></Link></div>
-          <div className="relative flex-[0_0_100%]"><Link legacyBehavior href='/shipping'><a>FREE EUROPEAN SHIPPING ON ORDERS OVER €100</a></Link></div>
+      <div className="overflow-hidden text-center text-xs xsmall:text-sm py-1 xsmall:py-2 bg-black text-white " ref={isSmallScreen ? noEmblaRef : emblaRef}>
+        <div className="flex small:justify-center small:gap-20">
+          <div className="relative flex-[0_0_100%] small:flex-none"><Link legacyBehavior href='/shipping'><a>FREE WORLDWIDE SHIPPING ON ORDERS OVER €200</a></Link></div>
+          <div className="relative flex-[0_0_100%] small:flex-none"><Link legacyBehavior href='/shipping'><a>FREE EUROPEAN SHIPPING ON ORDERS OVER €100</a></Link></div>
         </div>
       </div>
       <header
