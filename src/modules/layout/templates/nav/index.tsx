@@ -25,8 +25,8 @@ const Nav = () => {
     >
       <div className="overflow-hidden text-center text-sm py-2 bg-black text-white" ref={emblaRef}>
         <div className="flex">
-          <div className="relative flex-[0_0_100%]"><Link legacyBehavior href='/'><a>FREE WORLDWIDE SHIPPING ON ORDERS OVER €200</a></Link></div>
-          <div className="relative flex-[0_0_100%]"><Link legacyBehavior href='/'><a>FREE EUROPEAN SHIPPING ON ORDERS OVER €100</a></Link></div>
+          <div className="relative flex-[0_0_100%]"><Link legacyBehavior href='/shipping'><a>FREE WORLDWIDE SHIPPING ON ORDERS OVER €200</a></Link></div>
+          <div className="relative flex-[0_0_100%]"><Link legacyBehavior href='/shipping'><a>FREE EUROPEAN SHIPPING ON ORDERS OVER €100</a></Link></div>
         </div>
       </div>
       <header
