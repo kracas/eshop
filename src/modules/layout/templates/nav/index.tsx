@@ -33,36 +33,38 @@ const Nav = () => {
         </div>
       </div>
       <header
-        className="relative h-16 px-4 mx-auto transition-colors bg-transparent border-b border-transparent duration-200 group-hover:bg-white group-hover:border-gray-200 !bg-white !border-gray-200"
+        className="relative h-16 small:h-24 px-4 mx-auto transition-colors bg-transparent border-b border-transparent duration-200 group-hover:bg-white group-hover:border-gray-200 !bg-white !border-gray-200"
       >
         <nav
-          className="text-gray-900 flex items-center justify-between w-full h-full text-small-regular transition-colors duration-200"
+          className="text-gray-900 flex flex-col items-center justify-between w-full h-full text-small-regular transition-colors duration-200"
         >
-          <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="block small:hidden">
-              <Hamburger setOpen={toggle} />
+          <div className="text-gray-900 flex items-center justify-between w-full h-full text-small-regular transition-colors duration-200">
+            <div className="flex-1 basis-0 h-full flex items-center">
+              <div className="block small:hidden">
+                <Hamburger setOpen={toggle} />
+              </div>
             </div>
-            <div className="hidden small:block h-full">
-              <DropdownMenu />
-            </div>
-          </div>
 
-          <div className="flex items-center h-full w-full relative">
-            <Link legacyBehavior href="/">
-              <a>
-                <Image src={logo} objectFit="contain" alt="" layout="fill" />
-              </a>
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
-              {process.env.FEATURE_SEARCH_ENABLED && <DesktopSearchModal />}
-              <Link legacyBehavior href="/account">
-                <a>Account</a>
+            <div className="flex items-center h-full w-full relative">
+              <Link legacyBehavior href="/">
+                <a>
+                  <Image src={logo} objectFit="contain" alt="" layout="fill" />
+                </a>
               </Link>
             </div>
-            <CartDropdown />
+
+            <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
+              <div className="hidden small:flex items-center gap-x-6 h-full">
+                {process.env.FEATURE_SEARCH_ENABLED && <DesktopSearchModal />}
+                <Link legacyBehavior href="/account">
+                  <a>Account</a>
+                </Link>
+              </div>
+              <CartDropdown />
+            </div>
+          </div>
+          <div className="hidden small:block">
+            <DropdownMenu />
           </div>
         </nav>
         <MobileMenu />
