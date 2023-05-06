@@ -1,7 +1,7 @@
 import { useRegions } from "medusa-react"
 import { useMemo } from "react"
 
-type CountryOption = {
+export type CountryOption = {
   country: string
   region: string
   label: string
@@ -21,6 +21,16 @@ const useCountryOptions = () => {
       })
       .flat()
   }, [regions])
+
+  if (options) options.sort((a, b) => {
+    if (a.label < b.label) {
+      return -1;
+    }
+    if (b.label < a.label) {
+      return 1;
+    }
+    return 0;
+  });
 
   return options
 }

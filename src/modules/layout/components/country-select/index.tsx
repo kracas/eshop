@@ -1,33 +1,16 @@
 import { Listbox, Transition } from "@headlessui/react"
 import { useStore } from "@lib/context/store-context"
 import useToggleState from "@lib/hooks/use-toggle-state"
-import { useRegions } from "medusa-react"
-import { Fragment, useEffect, useMemo, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import ReactCountryFlag from "react-country-flag"
-
-type CountryOption = {
-  country: string
-  region: string
-  label: string
-}
+import useCountryOptions, { CountryOption } from "@lib/hooks/use-country-options"
 
 const CountrySelect = () => {
   const { countryCode, setRegion } = useStore()
-  const { regions } = useRegions()
   const [current, setCurrent] = useState<CountryOption | undefined>(undefined)
   const { state, open, close } = useToggleState()
 
-  const options: CountryOption[] | undefined = useMemo(() => {
-    return regions
-      ?.map((r) => {
-        return r.countries.map((c) => ({
-          country: c.iso_2,
-          region: r.id,
-          label: c.display_name,
-        }))
-      })
-      .flat()
-  }, [regions])
+  const options = useCountryOptions()
 
   useEffect(() => {
     if (countryCode) {
