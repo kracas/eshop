@@ -13,7 +13,7 @@ const DropdownMenu = () => {
       {!!collections && !!collections.length && collections.map((collection) => (
         <div key={collection.id}>
           <Link
-            href={`/categories/${collection.id}`}
+            href={`/collections/${collection.id}`}
             title={collection.title}
             className="uppercase hover:font-bold before:block before:content-[attr(title)] before:font-bold before:h-0 before:overflow-hidden before:invisible"
           >
