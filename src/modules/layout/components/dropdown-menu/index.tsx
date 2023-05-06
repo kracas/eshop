@@ -6,7 +6,6 @@ import PopoverMenu from "./popover"
 const DropdownMenu = () => {
   const { collections } = useCollections();
   const { categories } = useMobileMenu()
-  console.log(categories)
 
   return (
     <div className="flex gap-3 mt-2">
