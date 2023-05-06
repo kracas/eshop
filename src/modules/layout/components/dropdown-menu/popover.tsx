@@ -38,8 +38,8 @@ const PopoverMenu: React.FC<{ category: ProductCategory }> = ({ category }) => {
       onMouseLeave={() => setOpen(false)}
       className="h-full"
     >
-      <div className="flex items-center h-full w-full">
-        <Popover className="relative">
+      <div className="flex">
+        <Popover className="relative flex justify-center">
           <>
             <div
               title={category.name}
@@ -58,10 +58,10 @@ const PopoverMenu: React.FC<{ category: ProductCategory }> = ({ category }) => {
             >
               <Popover.Panel
                 static
-                className="absolute text-gray-900 -left-8 pt-2 w-32"
+                className="absolute pt-1 text-gray-900m w-40 top-full"
               >
                 <div className="bg-white py-1 w-full overflow-scroll max-h-[70vh]">
-                  <div className="flex items-start px-4 w-full">
+                  <div className="flex items-start px-4">
                     <div className="flex flex-col flex-1">
                       <div className="flex items-start flex-col">
                         {category.category_children.map((category_child) => {
