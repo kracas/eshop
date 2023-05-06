@@ -39,16 +39,15 @@ const MainMenu = () => {
             <ChevronDown />
           </button>
         </div>
-        <div className="flex relative w-full h-12">
-          <Link href="/" onClick={close}><Image src={logo} objectFit="contain" alt="" layout="fill" /></Link>
-        </div>
+        <Link href="/" onClick={close} className="flex relative w-full h-12">
+          <Image src={logo} objectFit="contain" alt="" layout="fill" />
+        </Link>
         <div className="flex-1 basis-0 flex justify-end">
           <button onClick={close}>
             <X size={20} />
           </button>
         </div>
       </div>
-
       <div className="space-y-6 flex-1 flex flex-col justify-between p-6">
         {process.env.FEATURE_SEARCH_ENABLED && (
           <button
@@ -64,7 +63,7 @@ const MainMenu = () => {
 
         <div className="flex flex-col flex-1 text-large-regular text-gray-900">
           <ul className="flex flex-col [&>*]:p-2">
-            {collections ? (
+            {collections && (
               <>
                 {collections.map((collection) => (
                   <li key={collection.id}>
@@ -84,7 +83,8 @@ const MainMenu = () => {
                   </li>
                 ))}
               </>
-            ) : null}
+            )
+            }
 
             {categories.length > 0 && categories.map(category => (
               <CategoryItem key={'cat_' + category.id} keyId={category.id} category={category} depth={0} />

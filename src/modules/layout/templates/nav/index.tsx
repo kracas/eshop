@@ -45,13 +45,9 @@ const Nav = () => {
               </div>
             </div>
 
-            <div className="flex items-center h-full w-full relative">
-              <Link legacyBehavior href="/">
-                <a>
-                  <Image src={logo} objectFit="contain" alt="" layout="fill" />
-                </a>
-              </Link>
-            </div>
+            <Link href="/" className="flex items-center h-full w-full relative">
+              <Image src={logo} objectFit="contain" alt="" layout="fill" />
+            </Link>
 
             <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
               <div className="hidden small:flex items-center gap-x-6 h-full">
