@@ -89,6 +89,16 @@ const MainMenu = () => {
             {categories.length > 0 && categories.map(category => (
               <CategoryItem key={'cat_' + category.id} keyId={category.id} category={category} depth={0} />
             ))}
+            <li>
+              <Link href={`/about`}>
+                <button
+                  className="flex items-center justify-between w-full uppercase"
+                  onClick={close}
+                >
+                  <span>About Us</span>
+                </button>
+              </Link>
+            </li>
           </ul>
         </div>
 
