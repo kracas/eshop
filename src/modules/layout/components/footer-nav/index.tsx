@@ -11,7 +11,7 @@ const FooterNav = () => {
             title='About us'
             items={[
               { title: 'About Us', url: "/about" },
-              { title: 'Try it on Today', url: "/about" },
+              { title: 'Try it on Today', url: "/locations" },
               { title: 'Contact Us', url: "/contact" },
 
             ]}
