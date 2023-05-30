@@ -1,11 +1,11 @@
-import { medusaClient } from "@lib/config"
+import { medusaClient, REVALIDATION_INTERVAL } from "@lib/config"
 import { IS_BROWSER } from "@lib/constants"
 import { getCollectionIds } from "@lib/util/get-collection-ids"
 import CollectionTemplate from "@modules/collections/templates"
 import Head from "@modules/common/components/head"
 import Layout from "@modules/layout/templates"
 import SkeletonCollectionPage from "@modules/skeletons/templates/skeleton-collection-page"
-import { GetStaticPaths, GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult, } from "next"
 import { useRouter } from "next/router"
 import { ParsedUrlQuery } from "querystring"
 import { ReactElement } from "react"
@@ -98,6 +98,11 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const result: GetStaticPropsResult<object> = {
+    props: {},
+    revalidate: REVALIDATION_INTERVAL,
+  }
+
   const queryClient = new QueryClient()
   const id = context.params?.id as string
 
@@ -116,20 +121,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const queryData = await queryClient.getQueryData([`get_collection`, id])
 
   if (!queryData) {
-    return {
-      props: {
-        notFound: true,
-      },
+    result.props = {
+      notFound: true,
     }
+    return result
+  }
+  result.props = {
+    // Work around see – https://github.com/TanStack/query/issues/1458#issuecomment-747716357
+    dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    notFound: false,
   }
 
-  return {
-    props: {
-      // Work around see – https://github.com/TanStack/query/issues/1458#issuecomment-747716357
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-      notFound: false,
-    },
-  }
+  return result
 }
 
 export default CollectionPage

@@ -1,4 +1,4 @@
-import { medusaClient } from "@lib/config"
+import { medusaClient, REVALIDATION_INTERVAL } from "@lib/config"
 import { IS_BROWSER } from "@lib/constants"
 import { getProductHandles } from "@lib/util/get-product-handles"
 import Head from "@modules/common/components/head"
@@ -6,7 +6,7 @@ import Layout from "@modules/layout/templates"
 import ProductTemplate from "@modules/products/templates"
 import SkeletonProductPage from "@modules/skeletons/templates/skeleton-product-page"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
-import { GetStaticPaths, GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from "next"
 import { useRouter } from "next/router"
 import { ParsedUrlQuery } from "querystring"
 import { ReactElement } from "react"
@@ -80,6 +80,10 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const result: GetStaticPropsResult<object> = {
+    props: {},
+    revalidate: REVALIDATION_INTERVAL,
+  }
   const handle = context.params?.handle as string
   const queryClient = new QueryClient()
 
@@ -90,19 +94,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const queryData = await queryClient.getQueryData([`get_product`, handle])
 
   if (!queryData) {
-    return {
-      props: {
-        notFound: true,
-      },
+    result.props = {
+      notFound: true,
     }
+    return result
   }
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      notFound: false,
-    },
+  result.props = {
+    dehydratedState: dehydrate(queryClient),
+    notFound: false,
   }
+
+  return result
 }
 
 export default ProductPage

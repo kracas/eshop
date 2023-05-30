@@ -1,11 +1,11 @@
-import { medusaClient } from "@lib/config"
+import { medusaClient, REVALIDATION_INTERVAL } from "@lib/config"
 import { IS_BROWSER } from "@lib/constants"
 import { getCategoryHandles } from "@lib/util/get-category-handles"
 import CategoryTemplate from "@modules/categories/templates"
 import Head from "@modules/common/components/head"
 import Layout from "@modules/layout/templates"
 import SkeletonCollectionPage from "@modules/skeletons/templates/skeleton-collection-page"
-import { GetStaticPaths, GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from "next"
 import { useRouter } from "next/router"
 import { ParsedUrlQuery } from "querystring"
 import { ReactElement } from "react"
@@ -97,6 +97,10 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const result: GetStaticPropsResult<object> = {
+    props: {},
+    revalidate: REVALIDATION_INTERVAL,
+  }
   const queryClient = new QueryClient();
   const handleArray = context.params?.handle as string[]
   const handle = handleArray.join('/');
@@ -108,9 +112,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const category = queryClient.getQueryData(['get_category', handle]) as ProductCategory
 
   if (!category) {
-    return {
+    result.props = {
       notFound: true,
     }
+    return result
   }
 
   await queryClient.prefetchInfiniteQuery(
@@ -121,15 +126,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   )
 
-
-  return {
-    props: {
-      // Work around see – https://github.com/TanStack/query/issues/1458#issuecomment-747716357
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-      notFound: false,
-    },
-    revalidate: 60 * 60,
+  result.props = {
+    // Work around see – https://github.com/TanStack/query/issues/1458#issuecomment-747716357
+    dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    notFound: false,
   }
+
+  return result
 }
 
 export default CollectionPage
