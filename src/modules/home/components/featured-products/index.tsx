@@ -12,7 +12,7 @@ const FeaturedProducts = () => {
         <div className="flex flex-col items-center text-center mb-10 text-2xl-regular text-gray-900 max-w-lg">
           Agnė&apos;s Favorites
         </div>
-        <ul className="grid grid-cols-2 small:grid-cols-4 gap-x-4 gap-y-8">
+        <ul className="products-grid">
           {data
             ? data.map((product) => (
               <li key={product.id}>

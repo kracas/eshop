@@ -58,7 +58,7 @@ const CategoryTemplate: React.FC<CategoryTemplateProps> = ({
       <div className="mb-8 text-2xl-semi">
         <h1>{category.name}</h1>
       </div>
-      <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-4 gap-y-8">
+      <ul className="products-grid">
         {previews.map((p) => (
           <li key={p.id}>
             <ProductPreview {...p} />
