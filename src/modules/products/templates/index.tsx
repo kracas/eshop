@@ -24,14 +24,14 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
           <ImageGallery images={product.images} />
         </div>
         <div
-          className="small:sticky small:top-20 w-full py-8 small:py-0 small:max-w-[344px] medium:max-w-[400px] flex flex-col gap-y-12"
+          className="small:sticky small:top-20 w-full small:max-w-[344px] medium:max-w-[400px] flex flex-col gap-y-12"
           ref={info}
         >
           <ProductInfo product={product} />
           <ProductTabs product={product} />
         </div>
       </div>
-      <div className="content-container my-16 px-6 small:px-8 small:my-32">
+      <div className="content-container">
         <RelatedProducts product={product} />
       </div>
       {/* <MobileActions product={product} show={!inView} /> */}
