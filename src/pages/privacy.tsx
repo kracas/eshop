@@ -22,8 +22,8 @@ const Shipping: NextPageWithLayout = () => {
             <p><a href="https://forever-september.com">www.forever-september.com</a>&nbsp; belongs to:</p>
             <p>Agnė Butvilaitė</p>
             <p>Pilies g. 16, 01123 Vilnius, Lithuania</p>
-            <p>Email: <a href="mailto:hello@foreverseptember.lt">hello@foreverseptember.lt</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <p>Phone: <a href="tel:+37068763351">+37068763351&nbsp;&nbsp;</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <p>Email: <a href="mailto:hello@forever-september.com">hello@forever-september.com</a></p>
+            <p>Phone: <a href="tel:+37068763351">+37068763351&nbsp;&nbsp;</a></p>
             <p><strong>WHAT WE COLLECT?</strong></p>
             <p>The information we learn from customers helps us personalize and continually improve your shopping experience at ForeverSeptember. Here are the types of information we gather.</p>
             <ul>
@@ -36,13 +36,13 @@ const Shipping: NextPageWithLayout = () => {
             <p><strong>INFORMATION SECURITY</strong></p>
             <p>As discussed above, you always can choose not to provide information, although it might be needed to make a purchase or to take advantage of additional ForeverSeptember features.</p>
             <p>You can add or update certain information on pages such as your personal account information and profile.</p>
-            <p>If you don’t want to receive e-mail or other mail from us, please email us so we can further assist you.&nbsp;</p>
+            <p>If you don’t want to receive e-mail or other mail from us, please email us so we can further assist you.</p>
             <p>We keep the personal information we collect about you strictly confidential. Only authorized personnel have access to this personal information.</p>
             <p><strong>CONTROLLING YOUR PERSONAL INFORMATION</strong></p>
             <p>You may choose to restrict the collection or use of your personal information in the following ways:</p>
             <ul>
               <li>whenever you are asked to fill in a form on the website, do not indicate that you want the information to be used by anybody for direct marketing purposes.</li>
-              <li>if you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time by writing to or emailing at <a href="mailto:hello@foreverseptember.lt">hello@foreverseptember.lt</a></li>
+              <li>if you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time by writing to or emailing at <a href="mailto:hello@forever-september.com">hello@forever-september.com</a></li>
             </ul>
             <p>We will not sell, distribute or lease your personal information to third parties unless we have your permission or are required by law to do so.&nbsp;</p>
           </>
