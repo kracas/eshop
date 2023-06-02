@@ -9,7 +9,7 @@ const InfoTemplate: React.FC<InfoTemplateProps> = ({
   title, text,
 }) => {
   return (
-    <div className="py-6 mt-2 mb-6">
+    <div className="py-6 mt-2 mb-6 px-2">
       <div className="content-container flex flex-col item-center text-center justify-center">
         {title &&
           <div className="text-2xl font-bold mb-10 uppercase">
