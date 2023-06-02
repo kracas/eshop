@@ -19,7 +19,7 @@ const Shipping: NextPageWithLayout = () => {
         title=""
         text={
           <>
-            <p><strong>ForeverSeptember</strong> is life and wisdom knit into little pieces of art by jeweler<br /><strong>Agnė Butvilaitė</strong>.</p>
+            <p><strong>ForeverSeptember</strong> is life and wisdom knit into little pieces of art by jeweler <strong>Agnė Butvilaitė</strong>.</p>
             <p>
               These are the kind of accessories that let you breathe, be adventurous and yet elegant.
               The careful combination of old world and new world materials feels refreshing, subtle and most importantly - full of life.
