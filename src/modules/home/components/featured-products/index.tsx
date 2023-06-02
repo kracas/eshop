@@ -7,9 +7,9 @@ const FeaturedProducts = () => {
   const { data } = useFeaturedProductsQuery()
 
   return (
-    <div className="py-12">
+    <div className="py-5">
       <div className="content-container">
-        <div className="flex flex-col items-center text-center mb-10 text-2xl-regular text-gray-900 max-w-lg">
+        <div className="flex flex-col items-center text-center mb-5 text-2xl-regular text-gray-900">
           Agnė&apos;s Favorites
         </div>
         <ul className="products-grid">
