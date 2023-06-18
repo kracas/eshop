@@ -8,7 +8,7 @@ import Link from "next/link"
 import { useRef } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
-import Image from "next/legacy/image"
+import Image from "next/image"
 import logo from "@assets/logo.png"
 import isBreakpoint from "@lib/util/isBreakpoint"
 
@@ -45,8 +45,8 @@ const Nav = () => {
               </div>
             </div>
 
-            <Link href="/" className="flex items-center h-full w-full relative">
-              <Image src={logo} objectFit="contain" alt="" layout="fill" />
+            <Link href="/" className="flex items-center justify-center h-full w-full">
+              <Image src={logo} alt="" height={45} />
             </Link>
 
             <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
