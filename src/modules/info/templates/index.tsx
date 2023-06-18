@@ -16,7 +16,7 @@ const InfoTemplate: React.FC<InfoTemplateProps> = ({
             {title}
           </div>
         }
-        <div className="max-w-4xl h-full w-full flex flex-col gap-5 text-sm">
+        <div className="max-w-4xl h-full w-full flex flex-col gap-5 text-sm text-justify">
           {text}
         </div>
       </div>
