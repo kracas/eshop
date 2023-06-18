@@ -5,6 +5,7 @@ import FastDelivery from "@modules/common/icons/fast-delivery"
 import Refresh from "@modules/common/icons/refresh"
 import clsx from "clsx"
 import { useMemo } from "react"
+import Link from "next/link"
 
 type ProductTabsProps = {
   product: Product
@@ -100,31 +101,53 @@ const ShippingInfoTab = () => {
         <div className="flex items-start gap-x-2">
           <FastDelivery />
           <div>
-            <span className="font-semibold">Fast delivery</span>
-            <p className="max-w-sm">
-              Your package will arrive in 3-5 business days at your pick up
-              location or in the comfort of your home.
+            <span className="font-semibold">Delivery</span>
+            <p className="max-w-sm text-justify">
+              <p><strong>
+                We offer free EU shipping on order over €100 and over €200 worldwide.
+                If you spend less then that shipping charge will apply on check out procedure.
+              </strong></p>
+              <p>
+                <strong>Every single peace is HAND MADE after an order is received. </strong>
+                It usually takes 3-5 working days to make it and additional 1-2 working days to ship it.
+                In the best case scenario your order will be shipped within 4-7 working days.
+              </p>
+              <p>
+                Shipments to non-EU countries may take longer due to the customs procedures.
+                Shipments may also be liable for customs taxes and additional fees.
+                These costs will be the responsibility of the buyer and will be settled at the given customs office.
+                We will take care of the paperwork required for the parcel to clear customs.
+                To find out the taxes that may be applied please go to your local customs site to check the rates for items purchased at the EU.
+              </p>
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Refresh />
           <div>
-            <span className="font-semibold">Simple exchanges</span>
-            <p className="max-w-sm">
+            <span className="font-semibold">Exchanges</span>
+            <p className="max-w-sm text-justify">
               Is the fit not quite right? No worries - we&apos;ll exchange your
-              product for a new one.
+              product for a new one.{' '}
+              <Link
+                title="Returns &amp; Exchanges form"
+                href="/returns"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                Follow these instructions to make sure your exchange is processed quickly and efficiently.
+              </Link>
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Back />
           <div>
-            <span className="font-semibold">Easy returns</span>
+            <span className="font-semibold">Returns</span>
             <p className="max-w-sm">
               Just return your product and we&apos;ll refund your money. No
               questions asked – we&apos;ll do our best to make sure your return
-              is hassle-free.
+              is hassle-free. <a title="Returns &amp; Exchanges form" href="/Returns-Exchanges-form.pdf" target="_blank" rel="noopener noreferrer" className="underline">Download Returns &amp; Exchanges Form</a>
             </p>
           </div>
         </div>
