@@ -20,6 +20,7 @@ const PhotoText: React.FC<{ image: StaticImageData, text: string }> = ({ image, 
           alt=""
           className="absolute inset-0"
           draggable="false"
+          unoptimized
         />
       </div>
     </div>
