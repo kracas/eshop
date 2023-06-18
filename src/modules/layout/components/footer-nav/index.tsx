@@ -23,7 +23,7 @@ const FooterNav = () => {
               { title: 'Shipping & Delivery', url: "/shipping" },
               { title: 'Returns & Exchanges', url: "/returns" },
               { title: 'Warranty', url: "/warranty" },
-              { title: 'Ring Size', url: "/ring-size" },
+              // { title: 'Ring Size', url: "/ring-size" },
             ]}
           />
           <MenuItem
