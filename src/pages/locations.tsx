@@ -52,6 +52,15 @@ const Locations: NextPageWithLayout = () => {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
+            <div className="text-base mt-4">MIUTTO</div>
+            <div className="text-xs">
+              Gaono g. 1, 01131, Vilnius, Lithuania
+            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9226.499649851066!2d25.28651768878112!3d54.68103004950439!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dd943f13d2b779%3A0x554d362970978c80!2sMiutto%20%2F%20The%20Place!5e0!3m2!1sen!2slt!4v1687079352995!5m2!1sen!2slt"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </>
         }
       />
