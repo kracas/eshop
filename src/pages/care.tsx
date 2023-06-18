@@ -25,7 +25,7 @@ const Care: NextPageWithLayout = () => {
             </div>
             <div>
               <div>Avoid:</div>
-              <ul className="list-disc">
+              <ul className="list-disc ml-3">
                 <li>Harsh chemicals and dip into cleaners should be avoided at all times.</li>
                 <li>Jewelry should always be removed before bathing, showering, applying sunscreen, spraying perfume directly, swimming in a sea and chlorinated water.</li>
                 <li>Scratching against hard surfaces or cleaning using paper towels as they can cause scratching also.</li>
@@ -34,7 +34,7 @@ const Care: NextPageWithLayout = () => {
             </div>
             <div>
               Please DO:
-              <ul className="list-disc">
+              <ul className="list-disc ml-3">
                 <li>Clean your jewelry with soft, non abrasive and lint free cloth is quite effective to keep it shiny and lustrous.</li>
                 <li>Wear your jewelry - your skin is a natural polisher.</li>
                 <li>Store in a jewelry box or zip lock bag when not wearing.</li>

@@ -17,7 +17,7 @@ const Shipping: NextPageWithLayout = () => {
         title="Returns & Exchanges"
         text={
           <>
-            <ol className="list-decimal">
+            <ol className="list-decimal ml-3">
               <li>We are happy to exchange an item bought on our website with a new size within 30 days upon receiving an item. Jewelry must be returned in the same condition it arrived in, including all branded packaging and filled out the Returns &amp; Exchanges form.</li>
               <li>We are happy to accept a purchase made on our online shop back within 14 days upon receiving of an item. Jewelry must be returned in the same condition it arrived in, including all branded packaging and filled out the Returns &amp; Exchanges form. We do not cover shipping costs.</li>
               <li>Send the items to the address provided below. We recommend using a tracked post and save the tracking information or better yet send it to us at <a href="mailto:hello@forever-september.com" className="underline">hello@forever-september.com</a></li>
