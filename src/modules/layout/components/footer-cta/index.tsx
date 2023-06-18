@@ -20,9 +20,9 @@ const FooterCTA = () => {
         <div id="instafeed" className="flex flex-wrap gap-1 md:gap-3 flex-row justify-center justify-items-center max-w-xs md:max-w-4xl" />
       </div>
       <div>
-        <h3 className="text-2xl-semi text-center">Shop the latest styles</h3>
+        <h3 className="text-2xl-semi text-center">Shop Agnė&apos;s Favorites</h3>
         <div className="pb-6">
-          <UnderlineLink href="/store">Explore products</UnderlineLink>
+          <UnderlineLink href={`${process.env.NEXT_PUBLIC_FAVORITES_CATEGORY_ID ? `/collections/${process.env.NEXT_PUBLIC_FAVORITES_CATEGORY_ID}` : '/store'}`}>Explore products</UnderlineLink>
         </div>
       </div>
     </div>
