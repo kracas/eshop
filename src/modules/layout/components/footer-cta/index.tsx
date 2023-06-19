@@ -1,12 +1,11 @@
 import UnderlineLink from "@modules/common/components/underline-link"
-import Image from "next/legacy/image"
 import { useEffect } from "react"
 import Instafeed from "@lib/instafeed"
 
 const FooterCTA = () => {
   useEffect(() => {
     const feed = new Instafeed({
-      accessToken: 'IGQVJYMlRmaS1vMTVrOE5heDBrbHdBSmJlNmFleExGWGl0SE9qZA3pBUmpTQ3pUendtQWRBOEpOTXJFd01QZAHJLTGROdkVIcmZAJSU1iZAFhpY3d3SXJ2QmR6UnJJNmpZAODBtV0VWRFdWWFZAJb2s5dU5NMQZDZD',
+      accessToken: process.env.NEXT_PUBLIC_INSTAGRAM_TOKEN,
       limit: 6,
       template: '<a href="{{link}}" target="_blank"><img class="w-24 h-24 md:w-60 md:h-60 object-cover" title="{{caption}}" src="{{image}}" /></a>',
     });
