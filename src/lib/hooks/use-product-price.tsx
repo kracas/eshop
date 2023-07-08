@@ -1,5 +1,5 @@
 import { formatAmount, useCart, useProducts } from "medusa-react"
-import { useMemo } from "react"
+import { useMemo, useEffect } from "react"
 import { CalculatedVariant } from "types/medusa"
 
 type useProductPriceProps = {
@@ -10,7 +10,7 @@ type useProductPriceProps = {
 const useProductPrice = ({ id, variantId }: useProductPriceProps) => {
   const { cart } = useCart()
 
-  const { products, isLoading, isError } = useProducts(
+  const { products, isLoading, isError, refetch } = useProducts(
     {
       id: id,
       cart_id: cart?.id,
@@ -19,6 +19,12 @@ const useProductPrice = ({ id, variantId }: useProductPriceProps) => {
   )
 
   const product = products?.[0]
+
+  useEffect(() => {
+    if (cart?.region) {
+      refetch()
+    }
+  }, [cart?.region, refetch])
 
   const getPercentageDiff = (original: number, calculated: number) => {
     const diff = original - calculated
