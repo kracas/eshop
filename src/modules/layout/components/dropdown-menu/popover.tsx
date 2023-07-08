@@ -1,15 +1,6 @@
 import { Popover, Transition } from "@headlessui/react"
-import {
-  useFeaturedProductsQuery,
-  useNavigationCollections,
-} from "@lib/hooks/use-layout-data"
-import repeat from "@lib/util/repeat"
-import { useCollections } from "medusa-react"
-import SkeletonProductPreview from "@modules/skeletons/components/skeleton-product-preview"
 import clsx from "clsx"
-import { chunk } from "lodash"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import React, { useState } from "react"
 import { ProductCategory } from "@medusajs/medusa"
 
@@ -28,7 +19,7 @@ const PopoverMenu: React.FC<{ category: ProductCategory }> = ({ category }) => {
 
   if (!category.category_children.length) return (
     <Link href={`/categories/${category.handle}`} className="relative flex h-full">
-      {popoverButton}
+      {category.name}
     </Link>
   )
 
