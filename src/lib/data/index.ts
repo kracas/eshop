@@ -73,7 +73,7 @@ export const getProductData = async (handle: string) => {
 
 const getInitialProducts = async (collectionId: string) => {
   const result = await medusaClient.products
-    .list({ collection_id: [collectionId], limit: 10 })
+    .list({ collection_id: [collectionId], limit: 10, order: "weight" })
     .then(({ products, count }) => {
       return {
         initialProducts: products,
@@ -122,6 +122,7 @@ export const fetchProductsList = async ({
   const { products, count, offset } = await medusaClient.products.list({
     limit: 12,
     offset: pageParam,
+    order: "weight",
     ...queryParams,
   })
 

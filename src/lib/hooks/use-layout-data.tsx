@@ -55,6 +55,7 @@ const fetchFeaturedProducts = async (
       is_giftcard: false,
       cart_id: cartId,
       collection_id: [process.env.NEXT_PUBLIC_FAVORITES_CATEGORY_ID || ''],
+      order: 'weight',
     })
     .then(({ products }) => products)
     .catch((_) => [] as Product[])

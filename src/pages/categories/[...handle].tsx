@@ -36,6 +36,7 @@ export const fetchCategoryProducts = async ({
     category_id: [id],
     include_category_children: true,
     cart_id: cartId,
+    order: "weight",
   })
 
   return {

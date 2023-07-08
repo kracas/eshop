@@ -37,6 +37,7 @@ export const fetchCollectionProducts = async ({
     offset: pageParam,
     collection_id: [id],
     cart_id: cartId,
+    order: "weight",
   })
 
   return {

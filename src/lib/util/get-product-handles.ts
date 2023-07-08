@@ -2,7 +2,7 @@ import { medusaClient } from "../config"
 
 export const getProductHandles = async (): Promise<string[]> => {
   const products = await medusaClient.products
-    .list({ limit: 25 })
+    .list({ limit: 25, order: "weight" })
     .then(({ products }) => products)
 
   const handles: string[] = []
