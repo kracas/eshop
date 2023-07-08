@@ -85,10 +85,19 @@ export const ProductProvider = ({
     return variants.find((v) => v.id === variantId)
   }, [options, variantRecord, variants])
 
-  // if product only has one variant, then select it
   useEffect(() => {
+    // if product only has one variant, then select it
     if (variants.length === 1) {
       setOptions(variantRecord[variants[0].id])
+    }
+    // if product has multiple variants then select the first one that has stock
+    if (variants.length > 1) {
+      for (const variant of variants) {
+        if (canBuy(variant)) {
+          setOptions(variantRecord[variant.id])
+          break
+        }
+      }
     }
   }, [variants, variantRecord])
 
