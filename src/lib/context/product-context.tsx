@@ -90,13 +90,13 @@ export const ProductProvider = ({
     if (variants.length === 1) {
       setOptions(variantRecord[variants[0].id])
     }
-    // if product has multiple variants then select the first one that has stock
+    // if product has multiple variants then select the first one that has stock or the first one if none have stock
     if (variants.length > 1) {
-      for (const variant of variants) {
-        if (canBuy(variant)) {
-          setOptions(variantRecord[variant.id])
-          break
-        }
+      const variant = variants.find((v) => canBuy(v))
+      if (variant) {
+        setOptions(variantRecord[variant.id])
+      } else {
+        setOptions(variantRecord[variants[0].id])
       }
     }
   }, [variants, variantRecord])
