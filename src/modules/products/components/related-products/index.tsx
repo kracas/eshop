@@ -25,9 +25,10 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
     }
 
     params.is_giftcard = false
+    params.cart_id = cart?.id
 
     return params
-  }, [product])
+  }, [product, cart])
 
   const { data, hasNextPage, fetchNextPage, isLoading, isFetchingNextPage } =
     useInfiniteQuery(
