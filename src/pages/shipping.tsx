@@ -18,13 +18,13 @@ const Shipping: NextPageWithLayout = () => {
         text={
           <>
             <p><strong>
-              We offer free EU shipping on order over €100 and over €200 worldwide.
-              If you spend less then that shipping charge will apply on check out procedure.
+              We offer free EU shipping on orders over €100 and over €200 worldwide.
+              If you spend less then that, shipping charge will apply on check out procedure.
             </strong></p>
             <p>
-              <strong>Every single peace is HAND MADE after an order is received. </strong>
-              It usually takes 3-5 working days to make it and additional 1-2 working days to ship it.
-              In the best case scenario your order will be shipped within 4-7 working days.
+              <strong>Every single piece is HAND MADE after an order is received. </strong>
+              It usually takes 3-5 business days to make it and additional 1-2 business days to ship it.
+              In the best case scenario your order will be shipped within 4-7 business days.
             </p>
             <p>
               Shipments to non-EU countries may take longer due to the customs procedures.
