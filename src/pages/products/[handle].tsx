@@ -19,7 +19,34 @@ interface Params extends ParsedUrlQuery {
 const fetchProduct = async (handle: string) => {
   return await medusaClient.products
     .list({ handle })
-    .then(({ products }) => products[0])
+    .then(({ products }) => {
+      const product = products[0]
+      //sort variants by rank
+      product.variants.sort((a, b) => {
+        if (a.variant_rank !== undefined && b.variant_rank !== undefined) {
+          return a.variant_rank - b.variant_rank
+        }
+        return 0
+      }
+      )
+      //sort options values by variant rank
+      product.options.forEach((option) => {
+        option.values.sort((a, b) => {
+          //get variant ids
+          const aId = a.variant_id
+          const bId = b.variant_id
+
+          //find variant rank
+          const aRank = product.variants.find((v) => v.id === aId)?.variant_rank
+          const bRank = product.variants.find((v) => v.id === bId)?.variant_rank
+
+          //sort by rank
+          if (aRank !== undefined && bRank !== undefined) return aRank - bRank
+          return 0
+        })
+      })
+      return product
+    })
 }
 
 const ProductPage: NextPageWithLayout<PrefetchedPageProps> = ({ notFound }) => {
