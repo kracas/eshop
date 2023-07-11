@@ -102,7 +102,7 @@ const ShippingInfoTab = () => {
           <FastDelivery />
           <div>
             <span className="font-semibold">Delivery</span>
-            <p className="max-w-sm text-justify">
+            <div className="max-w-sm text-justify">
               <p><strong>
                 We offer free EU shipping on orders over €100 and over €200 worldwide.
                 If you spend less then that, shipping charge will apply on check out procedure.
@@ -119,7 +119,7 @@ const ShippingInfoTab = () => {
                 We will take care of the paperwork required for the parcel to clear customs.
                 To find out the taxes that may be applied please go to your local customs site to check the rates for items purchased at the EU.
               </p>
-            </p>
+            </div>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
