@@ -67,3 +67,7 @@ export type InfiniteProductPage = {
     count: number
   }
 }
+
+declare global {
+  interface Window { dataLayer?: object[]; }
+}
