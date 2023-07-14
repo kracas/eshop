@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["cypress"],
+    "types": ["cypress", "@types/gtag.js"],
     "baseUrl": "./src",
     "paths": {
       "@lib/*": ["lib/*"],
