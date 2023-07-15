@@ -85,7 +85,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
       const items = getGtmItems(enrichedItems)
       sendGtmEcommerceEvent('begin_checkout', {
         value: cart?.subtotal ? cart.subtotal / 100 : 0,
-        currency: cart?.region.currency_code,
+        currency: cart?.region.currency_code.toUpperCase(),
         items: items,
       })
     }
@@ -337,7 +337,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
           sendGtmEcommerceEvent('purchase', {
             transaction_id: data.id,
             value: data.subtotal / 100,
-            currency: data.region.currency_code,
+            currency: data.region.currency_code.toUpperCase(),
             shipping: data.shipping_total / 100,
             items: gtmItems,
           })
