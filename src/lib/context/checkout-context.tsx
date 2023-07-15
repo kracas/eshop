@@ -21,6 +21,8 @@ import { useRouter } from "next/router"
 import React, { createContext, useContext, useEffect, useMemo } from "react"
 import { FormProvider, useForm, useFormContext } from "react-hook-form"
 import { useStore } from "./store-context"
+import useEnrichedLineItems from "@lib/hooks/use-enrich-line-items"
+import { sendGtmEcommerceEvent, getGtmItems } from "@lib/util/googleTagManager"
 
 type AddressValues = {
   first_name: string
@@ -74,6 +76,22 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
     },
     completeCheckout: { mutate: complete, isLoading: completingCheckout },
   } = useCart()
+
+  const enrichedItems = useEnrichedLineItems()
+
+  useEffect(() => {
+    //send begin checkout once
+    if (enrichedItems && enrichedItems.length) {
+      const items = getGtmItems(enrichedItems)
+      sendGtmEcommerceEvent('begin_checkout', {
+        value: cart?.subtotal,
+        currency: cart?.region.currency_code,
+        items: items,
+      })
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const { customer } = useMeCustomer()
   const { countryCode } = useStore()
