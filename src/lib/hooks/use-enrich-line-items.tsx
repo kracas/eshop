@@ -3,6 +3,8 @@ import omit from "lodash/omit"
 import { useCart, useProducts } from "medusa-react"
 import { useMemo } from "react"
 
+export type EnrichedLineItem = Omit<LineItem, "beforeInsert">
+
 /**
  * A hook that returns an array of enriched line items.
  * If you pass an array of line items, it will return those line items with enriched data.
@@ -39,7 +41,7 @@ const useEnrichedLineItems = (lineItems?: LineItem[], cartId?: string) => {
       return []
     }
 
-    const enrichedItems: Omit<LineItem, "beforeInsert">[] = []
+    const enrichedItems: EnrichedLineItem[] = []
 
     for (const item of currItems) {
       const product = products.find((p) => p.id === item.variant.product_id)

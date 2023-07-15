@@ -1,6 +1,6 @@
 import { medusaClient } from "@lib/config"
 import { handleError } from "@lib/util/handle-error"
-import { Region, LineItem } from "@medusajs/medusa"
+import { Region } from "@medusajs/medusa"
 import {
   useCart,
   useCreateLineItem,
@@ -9,10 +9,10 @@ import {
 } from "medusa-react"
 import React, { useEffect, useState, useReducer } from "react"
 import { useCartDropdown } from "./cart-dropdown-context"
-import useEnrichedLineItems from "@lib/hooks/use-enrich-line-items"
+import useEnrichedLineItems, { EnrichedLineItem } from "@lib/hooks/use-enrich-line-items"
 import { CalculatedVariant } from "types/medusa"
 import { nanoid } from 'nanoid'
-import { sendGtmEcommerceEvent } from "@lib/util/googleTagManager"
+import { sendGtmEcommerceEvent, getGtmItems } from "@lib/util/googleTagManager"
 
 interface VariantInfoProps {
   variantId: string
@@ -48,7 +48,7 @@ interface StoreProps {
 }
 type GtmEvent = { id: string, quantity: number, } &
   ({ eventType: "add" | "update", prevLineItem?: undefined } |
-  { eventType: "add" | "update" | "delete", prevLineItem: Omit<LineItem, "beforeInsert"> }) &
+  { eventType: "add" | "update" | "delete", prevLineItem: EnrichedLineItem }) &
   (
     { lineId: string, variantId?: undefined } |
     { variantId: string, lineId?: undefined }
@@ -254,26 +254,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
       const { eventType, lineId, variantId, quantity, prevLineItem } = gtmEvent
       const removeEvent = () => setGtmEvents({ action: 'remove', event: gtmEvent })
 
-      //find line item
-      let lineItem
-      if (!lineItem && prevLineItem) lineItem = prevLineItem
-      if (!lineItem && lineId && enrichedItems) lineItem = enrichedItems.find((li) => li.id === lineId)
-      if (!lineItem && variantId && enrichedItems) lineItem = enrichedItems.find((li) => li.variant_id === variantId)
-      if (!lineItem) return
-
-      const product = lineItem.variant.product;
-      if (!product) return removeEvent()
-
-      let catCount = 1
-      const categories: Record<string, string> = {}
-      if (product.categories?.length) for (const cat of product.categories) {
-        if (catCount > 5) break
-        categories[`item_category${catCount > 1 ? catCount : ""}`] = cat.handle
-        catCount++
-      }
-
       let eventName: Gtag.EventNames | undefined
-      const previousQuantity = lineItem.quantity
       if (eventType === "add") {
         eventName = "add_to_cart"
       }
@@ -290,30 +271,27 @@ export const StoreProvider = ({ children }: StoreProps) => {
       }
       if (!eventName) return removeEvent()
 
+      //find line item
+      let lineItem
+      if (!lineItem && prevLineItem) lineItem = prevLineItem
+      if (!lineItem && lineId && enrichedItems) lineItem = enrichedItems.find((li) => li.id === lineId)
+      if (!lineItem && variantId && enrichedItems) lineItem = enrichedItems.find((li) => li.variant_id === variantId)
+      if (!lineItem) return
+      const gtmItem = getGtmItems([lineItem])[0]
+      if (!gtmItem) return removeEvent()
+
       const variant = lineItem.variant as CalculatedVariant
       const price = Number(variant.calculated_price) / 100
-      const oldPrice = Number(variant.original_price) / 100
-      const discount = oldPrice - price
       const eventQuantity = Math.abs(quantity)
 
-      const item= {
-        ...categories,
-        item_name: product.title,
-        item_id: lineItem.variant.sku,
-        quantity: eventQuantity,
-        item_variant: lineItem.variant.title,
-        discount: discount > 0 ? discount : undefined,
-        price,
-      }
-
-      if (discount > 0) item.discount = 3.00
+      gtmItem.quantity = eventQuantity
 
       sendGtmEcommerceEvent(
         eventName,
         {
           currency: cart?.region?.currency_code.toUpperCase(),
           value: price * eventQuantity,
-          items: [item],
+          items: [gtmItem],
         }
       )
 
