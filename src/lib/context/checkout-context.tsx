@@ -84,7 +84,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
     if (enrichedItems && enrichedItems.length) {
       const items = getGtmItems(enrichedItems)
       sendGtmEcommerceEvent('begin_checkout', {
-        value: cart?.subtotal,
+        value: cart?.subtotal ? cart.subtotal / 100 : 0,
         currency: cart?.region.currency_code,
         items: items,
       })
@@ -332,13 +332,13 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   const onPaymentCompleted = () => {
     complete(undefined, {
       onSuccess: ({ type, data }) => {
-        if (enrichedItems && type === 'order'){
+        if (enrichedItems && type === 'order') {
           const gtmItems = getGtmItems(enrichedItems)
           sendGtmEcommerceEvent('purchase', {
             transaction_id: data.id,
-            value: data.subtotal,
+            value: data.subtotal / 100,
             currency: data.region.currency_code,
-            shipping: data.shipping_total,
+            shipping: data.shipping_total / 100,
             items: gtmItems,
           })
         }
