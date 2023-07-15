@@ -331,7 +331,17 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
    */
   const onPaymentCompleted = () => {
     complete(undefined, {
-      onSuccess: ({ data }) => {
+      onSuccess: ({ type, data }) => {
+        if (enrichedItems && type === 'order'){
+          const gtmItems = getGtmItems(enrichedItems)
+          sendGtmEcommerceEvent('purchase', {
+            transaction_id: data.id,
+            value: data.subtotal,
+            currency: data.region.currency_code,
+            shipping: data.shipping_total,
+            items: gtmItems,
+          })
+        }
         resetCart()
         push(`/order/confirmed/${data.id}`)
       },
