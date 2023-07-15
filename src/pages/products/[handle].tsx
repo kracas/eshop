@@ -9,8 +9,11 @@ import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from "next"
 import { useRouter } from "next/router"
 import { ParsedUrlQuery } from "querystring"
-import { ReactElement } from "react"
+import { ReactElement, useEffect } from "react"
 import { NextPageWithLayout, PrefetchedPageProps } from "types/global"
+import { sendGtmEcommerceEvent, getGtmCategories } from "@lib/util/googleTagManager"
+import { useCart } from "medusa-react"
+import { findCheapestCurrencyPrice } from "@lib/util/prices"
 
 interface Params extends ParsedUrlQuery {
   handle: string
@@ -18,7 +21,10 @@ interface Params extends ParsedUrlQuery {
 
 const fetchProduct = async (handle: string) => {
   return await medusaClient.products
-    .list({ handle })
+    .list({
+      handle,
+      expand: 'categories,variants,variants.options,options,options.values,images'
+    })
     .then(({ products }) => {
       const product = products[0]
       //sort variants by rank
@@ -52,6 +58,7 @@ const fetchProduct = async (handle: string) => {
 const ProductPage: NextPageWithLayout<PrefetchedPageProps> = ({ notFound }) => {
   const { query, isFallback, replace } = useRouter()
   const handle = typeof query.handle === "string" ? query.handle : ""
+  const { cart } = useCart()
 
   const { data, isError, isLoading, isSuccess } = useQuery(
     [`get_product`, handle],
@@ -61,6 +68,25 @@ const ProductPage: NextPageWithLayout<PrefetchedPageProps> = ({ notFound }) => {
       keepPreviousData: true,
     }
   )
+
+  useEffect(() => {
+    if (data && cart?.region) {
+      const price = findCheapestCurrencyPrice(data.variants, cart.region.currency_code)
+      if (!price) return
+      const itemPrice = price.amount / 100
+      const categories = getGtmCategories(data.categories)
+      sendGtmEcommerceEvent('view_item', {
+        currency: cart?.region.currency_code.toUpperCase(),
+        value: itemPrice,
+        items: [{
+          ...categories,
+          item_id: data.id,
+          item_name: data.title,
+          price: itemPrice,
+        }]
+      })
+    }
+  }, [data, cart?.region])
 
   if (notFound) {
     if (IS_BROWSER) {
