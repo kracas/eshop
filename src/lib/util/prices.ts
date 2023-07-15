@@ -4,9 +4,9 @@ import { Region, Variant } from "types/medusa"
 
 export const findCheapestRegionPrice = (variants: Variant[], regionId: string) => {
   const regionPrices = variants.reduce((acc, v) => {
-    const price = v.prices.find((p) => p.region_id === regionId)
-    if (price) {
-      acc.push(price)
+    const prices = v.prices.filter((p) => p.region_id === regionId)
+    if (prices.length) {
+      acc.push(...prices)
     }
 
     return acc
@@ -33,9 +33,9 @@ export const findCheapestCurrencyPrice = (
   currencyCode: string
 ) => {
   const currencyPrices = variants.reduce((acc, v) => {
-    const price = v.prices.find((p) => p.currency_code === currencyCode)
-    if (price) {
-      acc.push(price)
+    const prices = v.prices.filter((p) => p.currency_code === currencyCode)
+    if (prices.length) {
+      acc.push(...prices)
     }
 
     return acc
