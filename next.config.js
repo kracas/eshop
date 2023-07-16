@@ -9,5 +9,6 @@ module.exports = withStoreConfig({
   },
   experimental: {
     isrMemoryCacheSize: 0,
+    scrollRestoration: true,
   },
 })
