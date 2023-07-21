@@ -114,3 +114,9 @@
     @apply text-[36px] leading-[48px] font-semibold;
   }
 }
+
+@font-face {
+  font-family: "Circular Light";
+  src: url("../../public/fonts/CircularStd-Light.otf");
+  font-display: swap;
+}

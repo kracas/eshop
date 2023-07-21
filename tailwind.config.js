@@ -24,6 +24,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
+          "Circular Light",
           "Inter",
           "-apple-system",
           "BlinkMacSystemFont",
