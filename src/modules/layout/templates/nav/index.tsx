@@ -28,7 +28,7 @@ const Nav = () => {
     >
       <div className="overflow-hidden text-center text-xs xsmall:text-sm py-1 xsmall:py-2 bg-black text-white " ref={isSmallScreen ? noEmblaRef : emblaRef}>
         <div className="flex small:justify-center small:gap-20">
-          <div className="relative flex-[0_0_100%] small:flex-none"><Link legacyBehavior href='/shipping'><a>FREE WORLDWIDE SHIPPING ON ORDERS OVER €200</a></Link></div>
+          <div className="relative flex-[0_0_100%] small:flex-none"><Link legacyBehavior href='/shipping'><a>FREE WORLDWIDE SHIPPING ON ORDERS OVER $200</a></Link></div>
           <div className="relative flex-[0_0_100%] small:flex-none"><Link legacyBehavior href='/shipping'><a>FREE EUROPEAN SHIPPING ON ORDERS OVER €100</a></Link></div>
         </div>
       </div>

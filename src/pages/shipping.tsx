@@ -18,7 +18,7 @@ const Shipping: NextPageWithLayout = () => {
         text={
           <>
             <p><strong>
-              We offer free EU shipping on orders over €100 and over €200 worldwide.
+              We offer free EU shipping on orders over €100 and over $200 worldwide.
               If you spend less then that, shipping charge will apply on check out procedure.
             </strong></p>
             <p>
