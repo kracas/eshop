@@ -30,6 +30,8 @@ const Shipping: React.FC<ShippingProps> = ({ cart }) => {
     control,
     setError,
     formState: { errors },
+    setValue,
+    getValues,
   } = useForm<ShippingFormProps>({
     defaultValues: {
       soId: cart.shipping_methods?.[0]?.shipping_option_id,
@@ -68,6 +70,18 @@ const Shipping: React.FC<ShippingProps> = ({ cart }) => {
       }
     )
   }
+
+  useEffect(() => {
+    if (shipping_options?.length) {
+      const soId = shipping_options[0].id
+      const currentSoId = getValues("soId")
+      if (soId && currentSoId && !shipping_options.some((so) => so.id === currentSoId)) {
+        setValue("soId", soId)
+        submitShippingOption(soId)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shipping_options])
 
   const handleChange = (value: string, fn: (value: string) => void) => {
     submitShippingOption(value)
