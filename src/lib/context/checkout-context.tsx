@@ -18,7 +18,7 @@ import {
   useUpdateCart,
 } from "medusa-react"
 import { useRouter } from "next/router"
-import React, { createContext, useContext, useEffect, useMemo } from "react"
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react"
 import { FormProvider, useForm, useFormContext } from "react-hook-form"
 import { useStore } from "./store-context"
 import useEnrichedLineItems from "@lib/hooks/use-enrich-line-items"
@@ -56,6 +56,7 @@ interface CheckoutContext {
   setShippingOption: (soId: string) => void
   setPaymentSession: (providerId: string) => void
   onPaymentCompleted: () => void
+  setManualLoader: (isLoading: boolean) => void
 }
 
 const CheckoutContext = createContext<CheckoutContext | null>(null)
@@ -76,6 +77,8 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
     },
     completeCheckout: { mutate: complete, isLoading: completingCheckout },
   } = useCart()
+
+  const [isManualLoader, setManualLoader] = useState(false)
 
   const enrichedItems = useEnrichedLineItems()
 
@@ -134,13 +137,15 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
       addingShippingMethod ||
       settingPaymentSession ||
       updatingCart ||
-      completingCheckout
+      completingCheckout ||
+      isManualLoader
     )
   }, [
     addingShippingMethod,
     completingCheckout,
     settingPaymentSession,
     updatingCart,
+    isManualLoader,
   ])
 
   /**
@@ -364,6 +369,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
           setShippingOption,
           setPaymentSession,
           onPaymentCompleted,
+          setManualLoader,
         }}
       >
         <Wrapper paymentSession={cart?.payment_session}>{children}</Wrapper>

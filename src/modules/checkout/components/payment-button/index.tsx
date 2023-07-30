@@ -5,8 +5,9 @@ import Spinner from "@modules/common/icons/spinner"
 import { OnApproveActions, OnApproveData } from "@paypal/paypal-js"
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
-import { useCart } from "medusa-react"
+import { useCart, useSetPaymentSession } from "medusa-react"
 import React, { useEffect, useState } from "react"
+import { useRouter } from "next/router"
 
 type PaymentButtonProps = {
   paymentSession?: PaymentSession | null
@@ -15,6 +16,8 @@ type PaymentButtonProps = {
 const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
   const [notReady, setNotReady] = useState(true)
   const { cart } = useCart()
+  const { onPaymentCompleted, setManualLoader } = useCheckout()
+  const router = useRouter()
 
   useEffect(() => {
     setNotReady(true)
@@ -42,6 +45,17 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
     setNotReady(false)
   }, [cart])
 
+  useEffect(() => {
+    //check if query has stripeCheckoutSuccess
+    const stripeCheckoutSuccess = router.query.stripeCheckoutSuccess as string
+
+    if (stripeCheckoutSuccess === 'true') {
+      setManualLoader(true)
+      onPaymentCompleted()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   switch (paymentSession?.provider_id) {
     case "stripe":
       return (
@@ -52,6 +66,10 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
     case "paypal":
       return (
         <PayPalPaymentButton notReady={notReady} session={paymentSession} />
+      )
+    case "stripeCheckout":
+      return (
+        <StripeCheckoutButton notReady={notReady} session={paymentSession} />
       )
     default:
       return <Button disabled>Select a payment method</Button>
@@ -202,7 +220,7 @@ const PayPalPaymentButton = ({
   return (
     <PayPalScriptProvider
       options={{
-        "client-id": PAYPAL_CLIENT_ID,
+        clientId: PAYPAL_CLIENT_ID,
         currency: cart?.region.currency_code.toUpperCase(),
         intent: "authorize",
       }}
@@ -236,6 +254,35 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
   return (
     <Button disabled={submitting || notReady} onClick={handlePayment}>
       {submitting ? <Spinner /> : "Checkout"}
+    </Button>
+  )
+}
+
+const StripeCheckoutButton = ({
+  session,
+  notReady,
+}: {
+  session: PaymentSession
+  notReady: boolean
+}) => {
+  const [submitting, setSubmitting] = useState(false)
+  const router = useRouter()
+  const { mutate: setPaymentSession } = useSetPaymentSession(session.cart_id as string)
+
+  const handlePayment = async () => {
+    setSubmitting(true)
+    setPaymentSession({ provider_id: session.provider_id }, {
+      onSuccess: ({ cart }) => {
+        const stripeCheckoutPaymentSession = cart.payment_sessions.find((ps) => ps.provider_id === 'stripeCheckout')
+        const stripeCheckoutUrl = stripeCheckoutPaymentSession?.data?.url as string
+        if (stripeCheckoutUrl) router.push(stripeCheckoutUrl)
+      },
+    })
+  }
+
+  return (
+    <Button disabled={submitting || notReady} onClick={handlePayment}>
+      {submitting ? <Spinner /> : "Pay with Stripe Checkout"}
     </Button>
   )
 }

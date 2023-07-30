@@ -15,7 +15,7 @@ type PaymentContainerProps = {
 const PaymentInfoMap: Record<string, { title: string; description: string }> = {
   stripe: {
     title: "Credit card",
-    description: "Secure payment with Stripe",
+    description: "Secure payment with Stripe without leaving the page",
   },
   "stripe-ideal": {
     title: "iDEAL",
@@ -28,6 +28,10 @@ const PaymentInfoMap: Record<string, { title: string; description: string }> = {
   manual: {
     title: "Test payment",
     description: "Test payment using medusa-payment-manual",
+  },
+  stripeCheckout: {
+    title: "Stripe Checkout",
+    description: "Secure payment on Stripe payment page. Includes many payment methods: Credit card, Apple Pay, Google Pay, iDEAL, Bancontact, Giropay, BLIK, EPS.",
   },
 }
 
