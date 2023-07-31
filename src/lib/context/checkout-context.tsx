@@ -308,6 +308,8 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   const setAddresses = (data: CheckoutFormValues) => {
     const { shipping_address, billing_address, email } = data
 
+    validateRegion(shipping_address.country_code)
+
     const payload: StorePostCartsCartReq = {
       shipping_address,
       email,
