@@ -12,11 +12,9 @@ const AccountNav = () => {
     <div>
       <div className="small:hidden">
         {route !== "/account" && (
-          <Link legacyBehavior href="/account" >
-            <a >
-              <ChevronDown className="transform rotate-90" />
-              <span>Account</span>
-            </a>
+          <Link href="/account" className="flex flex-row items-center py-2 mb-3" >
+            <ChevronDown className="transform rotate-90" />
+            <span className="leading-none" >Account</span>
           </Link>
         )}
       </div>
