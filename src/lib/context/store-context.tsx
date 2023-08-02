@@ -1,11 +1,11 @@
 import { medusaClient } from "@lib/config"
 import { handleError } from "@lib/util/handle-error"
-import { Region } from "@medusajs/medusa"
+import { Region, Country } from "@medusajs/medusa"
 import {
   useCart,
   useCreateLineItem,
   useDeleteLineItem,
-  useUpdateLineItem
+  useUpdateLineItem,
 } from "medusa-react"
 import React, { useEffect, useState, useReducer } from "react"
 import { useCartDropdown } from "./cart-dropdown-context"
@@ -13,6 +13,7 @@ import useEnrichedLineItems, { EnrichedLineItem } from "@lib/hooks/use-enrich-li
 import { CalculatedVariant } from "types/medusa"
 import { nanoid } from 'nanoid'
 import { sendGtmEcommerceEvent, getGtmItems } from "@lib/util/googleTagManager"
+import useCountryOptions from "@lib/hooks/use-country-options"
 
 interface VariantInfoProps {
   variantId: string
@@ -75,6 +76,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
   const removeLineItem = useDeleteLineItem(cart?.id!)
   const adjustLineItem = useUpdateLineItem(cart?.id!)
   const enrichedItems = useEnrichedLineItems()
+  const countries = useCountryOptions()
 
   const storeRegion = (regionId: string, countryCode: string) => {
     if (!IS_SERVER) {
@@ -170,9 +172,12 @@ export const StoreProvider = ({ children }: StoreProps) => {
     }
   }
 
-  const createNewCart = async (regionId?: string) => {
+  const createNewCart = async (regionId?: string, countryCodeCart?: string) => {
     await createCart.mutateAsync(
-      { region_id: regionId },
+      {
+        region_id: regionId,
+        country_code: countryCodeCart
+      },
       {
         onSuccess: ({ cart }) => {
           setCart(cart)
@@ -237,15 +242,28 @@ export const StoreProvider = ({ children }: StoreProps) => {
         setCart(cartRes)
         ensureRegion(cartRes.region)
       } else {
-        await createNewCart(region?.regionId)
+        let countryCodeCart = region?.countryCode
+        let regionId = region?.regionId
+        if (!countryCodeCart) {
+          const data = await fetch("https://ipapi.co/json/");
+          const { country_code } = await data.json();
+          if (country_code) {
+            const country = countries?.find((c) => c.country === country_code.toLowerCase())
+            if (country) {
+              countryCodeCart = country.country
+              regionId = country.region
+            }
+          }
+        }
+        await createNewCart(regionId, countryCodeCart);
       }
     }
 
-    if (!IS_SERVER && !cart?.id) {
+    if (!IS_SERVER && !cart?.id && countries) {
       ensureCart()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [countries])
 
   useEffect(() => {
     if (!gtmEvents.length) return
