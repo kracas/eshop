@@ -20,7 +20,7 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
   const queryParams: StoreGetProductsParams = useMemo(() => {
     const params: StoreGetProductsParams = {}
 
-    if (product.tags) {
+    if (product.tags && product.tags.length) {
       params.tags = product.tags.map((t) => t.id)
     }
 

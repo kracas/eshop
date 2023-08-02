@@ -23,7 +23,7 @@ const fetchProduct = async (handle: string) => {
   return await medusaClient.products
     .list({
       handle,
-      expand: 'categories,variants,variants.options,variants.prices,options,options.values,images'
+      expand: 'categories,variants,variants.options,variants.prices,options,options.values,images,tags'
     })
     .then(({ products }) => {
       const product = products[0]
