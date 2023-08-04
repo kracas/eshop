@@ -29,7 +29,7 @@ const CategoryTemplate: React.FC<CategoryTemplateProps> = ({
     isFetchingNextPage,
     isLoading,
   } = useInfiniteQuery(
-    ["get_category_products", category.id, cart?.id],
+    ["get_category_products", category.id, cart?.id, cart?.region.id],
     ({ pageParam }) =>
       fetchCategoryProducts({
         pageParam,
