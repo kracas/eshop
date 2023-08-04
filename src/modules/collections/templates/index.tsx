@@ -29,7 +29,7 @@ const CollectionTemplate: React.FC<CollectionTemplateProps> = ({
     isFetchingNextPage,
     isLoading,
   } = useInfiniteQuery(
-    [`get_collection_products`, collection.id, cart?.id, cart?.region.id],
+    [`get_collection_products`, collection.id, cart?.id, cart?.region?.id],
     ({ pageParam }) =>
       fetchCollectionProducts({
         pageParam,
