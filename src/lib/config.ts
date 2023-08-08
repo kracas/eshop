@@ -20,6 +20,9 @@ const queryClient = new QueryClient({
 
 const medusaClient = new Medusa({ baseUrl: MEDUSA_BACKEND_URL, maxRetries: 3 })
 
-let REVALIDATION_INTERVAL = 60
+let REVALIDATION_INTERVAL = 60 * 60 * 24
+if (process.env.NEXT_PUBLIC_REVALIDATION_INTERVAL) {
+  REVALIDATION_INTERVAL = Number(process.env.NEXT_PUBLIC_REVALIDATION_INTERVAL)
+}
 
 export { MEDUSA_BACKEND_URL, queryClient, medusaClient, REVALIDATION_INTERVAL }
