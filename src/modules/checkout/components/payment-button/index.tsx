@@ -16,7 +16,7 @@ type PaymentButtonProps = {
 const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
   const [notReady, setNotReady] = useState(true)
   const { cart } = useCart()
-  const { onPaymentCompleted, setManualLoader } = useCheckout()
+  const { onPaymentCompleted, setManualLoader, isLoading } = useCheckout()
   const router = useRouter()
 
   useEffect(() => {
@@ -55,6 +55,8 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  if (isLoading) return <Button disabled>Loading...</Button>
 
   switch (paymentSession?.provider_id) {
     case "stripe":

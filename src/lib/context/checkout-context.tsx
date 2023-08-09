@@ -262,6 +262,14 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
     }
   }
 
+  //update payment session when cart total changes
+  useEffect(() => {
+    if (cart?.payment_session) {
+      setPaymentSession(cart.payment_session.provider_id)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart?.total])
+
   const prepareFinalSteps = () => {
     initPayment()
 
