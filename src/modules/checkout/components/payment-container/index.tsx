@@ -30,8 +30,8 @@ const PaymentInfoMap: Record<string, { title: string; description: string }> = {
     description: "Test payment using medusa-payment-manual",
   },
   stripeCheckout: {
-    title: "Stripe Checkout",
-    description: "Secure payment on Stripe payment page. Includes many payment methods: Credit card, Apple Pay, Google Pay, iDEAL, Bancontact, Giropay, BLIK, EPS.",
+    title: "Credit card & more",
+    description: "Secure payment with Stripe. Includes many payment methods: Credit card, Apple Pay, Google Pay, iDEAL, Bancontact, Giropay, BLIK, EPS.",
   },
 }
 
