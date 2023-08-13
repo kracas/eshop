@@ -5,6 +5,7 @@ import {
   Cart,
   Customer,
   StorePostCartsCartReq,
+  Order
 } from "@medusajs/medusa"
 import Wrapper from "@modules/checkout/components/payment-wrapper"
 import { isEqual } from "lodash"
@@ -55,7 +56,7 @@ interface CheckoutContext {
   setSavedAddress: (address: Address) => void
   setShippingOption: (soId: string) => void
   setPaymentSession: (providerId: string) => void
-  onPaymentCompleted: () => void
+  onPaymentCompleted: (cartId?: Cart["id"]) => void
   setManualLoader: (isLoading: boolean) => void
 }
 
@@ -344,22 +345,38 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   /**
    * Method to complete the checkout process. This is called when the user clicks the "Complete Checkout" button.
    */
-  const onPaymentCompleted = () => {
+  const onPaymentCompleted = (cartId?: Cart["id"]) => {
+    const sendGtmPurchase = (order: Order) => {
+      if (enrichedItems) {
+        const gtmItems = getGtmItems(enrichedItems)
+        sendGtmEcommerceEvent('purchase', {
+          transaction_id: order.id,
+          value: order.subtotal / 100,
+          currency: order.region.currency_code.toUpperCase(),
+          shipping: order.shipping_total / 100,
+          items: gtmItems,
+        })
+      }
+    }
+
+    if (cartId) {
+      const redirectToOrder = async () => {
+        const { order } = await medusaClient.orders.retrieveByCartId(cartId)
+        sendGtmPurchase(order)
+        push(`/order/confirmed/${order.id}`)
+      }
+
+      return redirectToOrder()
+    }
+
     complete(undefined, {
       onSuccess: ({ type, data }) => {
-        if (enrichedItems && type === 'order') {
-          const gtmItems = getGtmItems(enrichedItems)
-          sendGtmEcommerceEvent('purchase', {
-            transaction_id: data.id,
-            value: data.subtotal / 100,
-            currency: data.region.currency_code.toUpperCase(),
-            shipping: data.shipping_total / 100,
-            items: gtmItems,
-          })
+        if (type === 'order') {
+          sendGtmPurchase(data)
         }
         resetCart()
         push(`/order/confirmed/${data.id}`)
-      },
+      }
     })
   }
 

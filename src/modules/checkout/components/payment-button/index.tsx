@@ -46,15 +46,18 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
   }, [cart])
 
   useEffect(() => {
-    //check if query has stripeCheckoutSuccess
-    const stripeCheckoutSuccess = router.query.stripeCheckoutSuccess as string
-
-    if (stripeCheckoutSuccess === 'true') {
-      setManualLoader(true)
-      onPaymentCompleted()
+    if (cart?.id) {
+      //check if query has stripeCheckoutSuccess
+      const stripeCheckoutSuccess = router.query.stripeCheckoutSuccess;
+      if (stripeCheckoutSuccess === 'true') {
+        setManualLoader(true)
+        const cartId = router.query.cartId;
+        if (typeof cartId === 'string' && cart.id !== cartId) onPaymentCompleted(cartId)
+        else onPaymentCompleted()
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [cart?.id])
 
   if (isLoading) return <Button disabled>Loading...</Button>
 
@@ -284,7 +287,7 @@ const StripeCheckoutButton = ({
 
   return (
     <Button disabled={submitting || notReady} onClick={handlePayment}>
-      {submitting ? <Spinner /> : "Pay with Stripe Checkout"}
+      {submitting ? <Spinner /> : "Pay with Stripe"}
     </Button>
   )
 }
