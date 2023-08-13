@@ -298,14 +298,14 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   /**
    * Method that validates if the cart's region matches the shipping address's region. If not, it will update the cart region.
    */
-  const validateRegion = (countryCode: string) => {
+  const validateRegion = async (countryCode: string) => {
     if (regions && cart) {
       const region = regions.find((r) =>
         r.countries.map((c) => c.iso_2).includes(countryCode)
       )
 
       if (region && region.id !== cart.region.id) {
-        setRegion(region.id, countryCode)
+        await setRegion(region.id, countryCode)
       }
     }
   }
@@ -316,28 +316,28 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   const setAddresses = (data: CheckoutFormValues) => {
     const { shipping_address, billing_address, email } = data
 
-    validateRegion(shipping_address.country_code)
+    validateRegion(shipping_address.country_code).then(() => {
+      const payload: StorePostCartsCartReq = {
+        shipping_address,
+        email,
+      }
 
-    const payload: StorePostCartsCartReq = {
-      shipping_address,
-      email,
-    }
+      if (isEqual(shipping_address, billing_address)) {
+        sameAsBilling.open()
+      }
 
-    if (isEqual(shipping_address, billing_address)) {
-      sameAsBilling.open()
-    }
+      if (sameAsBilling.state) {
+        payload.billing_address = shipping_address
+      } else {
+        payload.billing_address = billing_address
+      }
 
-    if (sameAsBilling.state) {
-      payload.billing_address = shipping_address
-    } else {
-      payload.billing_address = billing_address
-    }
-
-    updateCart(payload, {
-      onSuccess: ({ cart }) => {
-        setCart(cart)
-        prepareFinalSteps()
-      },
+      updateCart(payload, {
+        onSuccess: ({ cart }) => {
+          setCart(cart)
+          prepareFinalSteps()
+        },
+      })
     })
   }
 

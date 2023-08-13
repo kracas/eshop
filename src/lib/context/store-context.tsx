@@ -1,6 +1,6 @@
 import { medusaClient } from "@lib/config"
 import { handleError } from "@lib/util/handle-error"
-import { Region, Country } from "@medusajs/medusa"
+import { Region } from "@medusajs/medusa"
 import {
   useCart,
   useCreateLineItem,
@@ -27,7 +27,7 @@ interface LineInfoProps {
 
 interface StoreContext {
   countryCode: string | undefined
-  setRegion: (regionId: string, countryCode: string) => void
+  setRegion: (regionId: string, countryCode: string) => Promise<void>
   addItem: (item: VariantInfoProps) => void
   updateItem: (item: LineInfoProps) => void
   deleteItem: (lineId: string) => void
@@ -235,7 +235,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
         if (!cartRes || cartRes.completed_at) {
           deleteCart()
           deleteRegion()
-          await createNewCart()
+          await createNewCart(region?.regionId, region?.countryCode)
           return
         }
 
