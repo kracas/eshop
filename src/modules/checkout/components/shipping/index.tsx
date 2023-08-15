@@ -75,7 +75,9 @@ const Shipping: React.FC<ShippingProps> = ({ cart }) => {
     if (shipping_options?.length) {
       const soId = shipping_options[0].id
       const currentSoId = getValues("soId")
-      if (soId && currentSoId && !shipping_options.some((so) => so.id === currentSoId)) {
+
+      // If we have a shipping option and the current one is not valid or there is no current one, we need to update it
+      if (soId && (!currentSoId || !shipping_options.some((so) => so.id === currentSoId))) {
         setValue("soId", soId)
         submitShippingOption(soId)
       }
