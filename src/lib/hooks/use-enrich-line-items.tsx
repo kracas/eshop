@@ -24,7 +24,7 @@ const useEnrichedLineItems = (lineItems?: LineItem[], cartId?: string) => {
     return {
       id: cart?.items.map((lineItem) => lineItem.variant.product_id),
       cart_id: cart?.id,
-      expand: 'categories,variants,variants.options,options',
+      expand: 'categories,variants,variants.options,options,variants.prices',
     }
   }, [lineItems, cart?.items, cart?.id, cartId])
 
