@@ -21,7 +21,7 @@ const CartTemplate = () => {
 
       sendGtmEcommerceEvent('view_cart', {
         currency: cart.region.currency_code,
-        value: cart.subtotal,
+        value: cart?.subtotal ? cart.subtotal / 100 : undefined,
         items: gtmItems,
       })
     }
