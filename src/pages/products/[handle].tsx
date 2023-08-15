@@ -86,7 +86,8 @@ const ProductPage: NextPageWithLayout<PrefetchedPageProps> = ({ notFound }) => {
         }]
       })
     }
-  }, [data, cart?.region])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.id, cart?.region])
 
   if (notFound) {
     if (IS_BROWSER) {
