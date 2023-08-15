@@ -17,6 +17,13 @@ export const getGtmCategories = (categories: ProductCategory[]): Record<string, 
   return gtmCategories
 }
 
+export const getGtmPriceDiscount = (variant: CalculatedVariant) => {
+  const price = Number(variant.calculated_price) / 100
+  const oldPrice = Number(variant.original_price) / 100
+  const discount = oldPrice - price
+  return { price, discount: discount > 0 ? discount : undefined }
+}
+
 export const getGtmItems = (items: EnrichedLineItem[]) => {
   return items.map(item => {
     if (!item) return {}
@@ -24,18 +31,15 @@ export const getGtmItems = (items: EnrichedLineItem[]) => {
     if (!product) return {}
 
     const variant = item.variant as CalculatedVariant
-    const price = Number(variant.calculated_price) / 100
-    const oldPrice = Number(variant.original_price) / 100
-    const discount = oldPrice - price
+    const priceAndDiscount = getGtmPriceDiscount(variant)
     const categories = getGtmCategories(product.categories)
 
     const gtmItem: Gtag.Item = {
       ...categories,
+      ...priceAndDiscount,
       item_name: product.title,
       item_id: item.variant.sku,
       item_variant: item.variant.title,
-      discount: discount > 0 ? discount : undefined,
-      price,
       quantity: item.quantity,
     }
     return gtmItem
