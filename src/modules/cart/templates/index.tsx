@@ -6,11 +6,27 @@ import EmptyCartMessage from "../components/empty-cart-message"
 import SignInPrompt from "../components/sign-in-prompt"
 import ItemsTemplate from "./items"
 import Summary from "./summary"
+import { useEffect } from "react"
+import { sendGtmEcommerceEvent, getGtmItems } from "@lib/util/googleTagManager"
 
 const CartTemplate = () => {
   const { cart } = useCart()
   const { customer, isLoading } = useMeCustomer()
   const items = useEnrichedLineItems()
+
+  useEffect(() => {
+    if (cart && cart.id?.length) {
+      let gtmItems
+      if (items?.length) gtmItems = getGtmItems(items)
+
+      sendGtmEcommerceEvent('view_cart', {
+        currency: cart.region.currency_code,
+        value: cart.subtotal,
+        items: gtmItems,
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart?.id?.length])
 
   if (!cart || !cart?.id?.length || isLoading) {
     return <SkeletonCartPage />
