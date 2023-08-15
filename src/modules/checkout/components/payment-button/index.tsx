@@ -61,20 +61,22 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
 
   if (isLoading) return <Button disabled>Loading...</Button>
 
+  if (notReady) return <Button disabled>Select a shipping method</Button>
+
   switch (paymentSession?.provider_id) {
     case "stripe":
       return (
-        <StripePaymentButton session={paymentSession} notReady={notReady} />
+        <StripePaymentButton session={paymentSession} />
       )
     case "manual":
-      return <ManualTestPaymentButton notReady={notReady} />
+      return <ManualTestPaymentButton />
     case "paypal":
       return (
-        <PayPalPaymentButton notReady={notReady} session={paymentSession} />
+        <PayPalPaymentButton session={paymentSession} />
       )
     case "stripeCheckout":
       return (
-        <StripeCheckoutButton notReady={notReady} session={paymentSession} />
+        <StripeCheckoutButton session={paymentSession} />
       )
     default:
       return <Button disabled>Select a payment method</Button>
@@ -83,10 +85,8 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
 
 const StripePaymentButton = ({
   session,
-  notReady,
 }: {
   session: PaymentSession
-  notReady: boolean
 }) => {
   const [disabled, setDisabled] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -171,7 +171,7 @@ const StripePaymentButton = ({
   return (
     <>
       <Button
-        disabled={submitting || disabled || notReady}
+        disabled={submitting || disabled}
         onClick={handlePayment}
       >
         {submitting ? <Spinner /> : "Pay with Card"}
@@ -189,10 +189,8 @@ const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || ""
 
 const PayPalPaymentButton = ({
   session,
-  notReady,
 }: {
   session: PaymentSession
-  notReady: boolean
 }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
@@ -237,13 +235,13 @@ const PayPalPaymentButton = ({
         style={{ layout: "vertical", tagline: false, color: 'black', }}
         createOrder={async () => session.data.id as string}
         onApprove={handlePayment}
-        disabled={notReady || submitting}
+        disabled={submitting}
       />
     </PayPalScriptProvider>
   )
 }
 
-const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
+const ManualTestPaymentButton = () => {
   const [submitting, setSubmitting] = useState(false)
 
   const { onPaymentCompleted } = useCheckout()
@@ -257,7 +255,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
   }
 
   return (
-    <Button disabled={submitting || notReady} onClick={handlePayment}>
+    <Button disabled={submitting} onClick={handlePayment}>
       {submitting ? <Spinner /> : "Checkout"}
     </Button>
   )
@@ -265,10 +263,8 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
 
 const StripeCheckoutButton = ({
   session,
-  notReady,
 }: {
   session: PaymentSession
-  notReady: boolean
 }) => {
   const [submitting, setSubmitting] = useState(false)
   const router = useRouter()
@@ -286,7 +282,7 @@ const StripeCheckoutButton = ({
   }
 
   return (
-    <Button disabled={submitting || notReady} onClick={handlePayment}>
+    <Button disabled={submitting} onClick={handlePayment}>
       {submitting ? <Spinner /> : "Pay with Stripe"}
     </Button>
   )
