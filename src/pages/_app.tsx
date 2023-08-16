@@ -8,29 +8,12 @@ import { CartProvider, MedusaProvider } from "medusa-react"
 import "styles/globals.css"
 import { AppPropsWithLayout } from "types/global"
 import Script from "next/script"
-import { useEffect } from "react"
-import { useRouter } from "next/router"
 
 function App({
   Component,
   pageProps,
 }: AppPropsWithLayout<{ dehydratedState?: unknown }>) {
   const getLayout = Component.getLayout ?? ((page) => page)
-  const router = useRouter()
-
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      gtag('event', 'page_view', {
-        page_location: window.location.href,
-        page_path: url,
-        page_title: document.title,
-      })
-    }
-    router.events.on("routeChangeComplete", handleRouteChange)
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange)
-    }
-  }, [router.events])
 
   return (
     <>

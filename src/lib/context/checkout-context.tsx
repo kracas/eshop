@@ -91,6 +91,18 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
         value: cart?.subtotal ? cart.subtotal / 100 : 0,
         currency: cart?.region.currency_code.toUpperCase(),
         items: items,
+        user_data: {
+          email: cart?.email,
+          address: {
+            city: cart?.shipping_address?.city,
+            first_name: cart?.shipping_address?.first_name,
+            last_name: cart?.shipping_address?.last_name,
+            postal_code: cart?.shipping_address?.postal_code,
+            region: cart?.shipping_address?.province,
+            country: cart?.shipping_address?.country_code,
+            phone_number: cart?.shipping_address?.phone,
+          }
+        }
       })
     }
 
@@ -355,6 +367,18 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
           currency: order.region.currency_code.toUpperCase(),
           shipping: order.shipping_total / 100,
           items: gtmItems,
+          user_data: {
+            email: order.email,
+            address: {
+              city: order.shipping_address.city,
+              first_name: order.shipping_address.first_name,
+              last_name: order.shipping_address.last_name,
+              postal_code: order.shipping_address.postal_code,
+              region: order.shipping_address.province,
+              country: order.shipping_address.country_code,
+              phone_number: order.shipping_address.phone,
+            }
+          }
         })
       }
     }

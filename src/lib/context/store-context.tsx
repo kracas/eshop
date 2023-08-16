@@ -14,6 +14,7 @@ import { CalculatedVariant } from "types/medusa"
 import { nanoid } from 'nanoid'
 import { sendGtmEcommerceEvent, getGtmItems } from "@lib/util/googleTagManager"
 import useCountryOptions from "@lib/hooks/use-country-options"
+import { useRouter } from "next/router"
 
 interface VariantInfoProps {
   variantId: string
@@ -77,6 +78,36 @@ export const StoreProvider = ({ children }: StoreProps) => {
   const adjustLineItem = useUpdateLineItem(cart?.id!)
   const enrichedItems = useEnrichedLineItems()
   const countries = useCountryOptions()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (cart?.id) {
+      const handleRouteChange = (url: string) => {
+        gtag('event', 'page_view', {
+          page_location: window.location.href,
+          page_path: url,
+          page_title: document.title,
+          user_data: {
+            email: cart?.email,
+            address: {
+              city: cart?.shipping_address?.city,
+              first_name: cart?.shipping_address?.first_name,
+              last_name: cart?.shipping_address?.last_name,
+              postal_code: cart?.shipping_address?.postal_code,
+              region: cart?.shipping_address?.province,
+              country: cart?.shipping_address?.country_code,
+              phone_number: cart?.shipping_address?.phone,
+            }
+          }
+        })
+      }
+      router.events.on("routeChangeComplete", handleRouteChange)
+      return () => {
+        router.events.off("routeChangeComplete", handleRouteChange)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart?.id])
 
   const storeRegion = (regionId: string, countryCode: string) => {
     if (!IS_SERVER) {
@@ -310,6 +341,18 @@ export const StoreProvider = ({ children }: StoreProps) => {
           currency: cart?.region?.currency_code.toUpperCase(),
           value: price * eventQuantity,
           items: [gtmItem],
+          user_data: {
+            email: cart?.email,
+            address: {
+              city: cart?.shipping_address?.city,
+              first_name: cart?.shipping_address?.first_name,
+              last_name: cart?.shipping_address?.last_name,
+              postal_code: cart?.shipping_address?.postal_code,
+              region: cart?.shipping_address?.province,
+              country: cart?.shipping_address?.country_code,
+              phone_number: cart?.shipping_address?.phone,
+            }
+          }
         }
       )
 
