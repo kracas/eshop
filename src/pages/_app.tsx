@@ -17,6 +17,20 @@ function App({
 
   return (
     <>
+      <Script id='pixel'>
+        {`
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          '${process.env.NEXT_PUBLIC_STOREFRONT_URL}/api/pixel');
+          fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
+          fbq('track', 'PageView');
+        `}
+      </Script>
       <Script
         strategy='afterInteractive'
         src={`${process.env.NEXT_PUBLIC_TAGGING_SERVER_URL}/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
