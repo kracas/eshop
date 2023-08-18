@@ -38,7 +38,7 @@ export const getGtmItems = (items: EnrichedLineItem[]) => {
       ...categories,
       ...priceAndDiscount,
       item_name: product.title,
-      item_id: item.variant.sku,
+      item_id: item.id,
       item_variant: item.variant.title,
       quantity: item.quantity,
     }
