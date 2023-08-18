@@ -22,7 +22,7 @@ import { useRouter } from "next/router"
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react"
 import { FormProvider, useForm, useFormContext } from "react-hook-form"
 import { useStore } from "./store-context"
-import useEnrichedLineItems from "@lib/hooks/use-enrich-line-items"
+import useEnrichedLineItems, { getEnrichedLineItems } from "@lib/hooks/use-enrich-line-items"
 import { sendGtmEcommerceEvent, getGtmItems } from "@lib/util/googleTagManager"
 
 type AddressValues = {
@@ -269,7 +269,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
         {
           onSuccess: ({ cart }) => {
             setCart(cart)
-            
+
             //send gtm event
             let items
             if (enrichedItems && enrichedItems.length) {
@@ -382,35 +382,45 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
    * Method to complete the checkout process. This is called when the user clicks the "Complete Checkout" button.
    */
   const onPaymentCompleted = (cartId?: Cart["id"]) => {
-    const sendGtmPurchase = (order: Order) => {
-      if (enrichedItems) {
-        const gtmItems = getGtmItems(enrichedItems)
-        sendGtmEcommerceEvent('purchase', {
-          transaction_id: order.id,
-          value: order.subtotal / 100,
-          currency: order.region.currency_code.toUpperCase(),
-          shipping: order.shipping_total / 100,
-          items: gtmItems,
-          user_data: {
-            email: order.email,
-            address: {
-              city: order.shipping_address.city,
-              first_name: order.shipping_address.first_name,
-              last_name: order.shipping_address.last_name,
-              postal_code: order.shipping_address.postal_code,
-              region: order.shipping_address.province,
-              country: order.shipping_address.country_code,
-              phone_number: order.shipping_address.phone,
-            }
-          }
-        })
+    const sendGtmPurchase = async (order: Order) => {
+      let items: Gtag.Item[] = []
+      if (!cartId && enrichedItems) {
+        items = getGtmItems(enrichedItems)
       }
+      if (cartId) {
+        const { products } = await medusaClient.products.list({
+          id: order.items.map((lineItem) => lineItem.variant.product_id),
+          cart_id: cartId,
+          expand: 'categories,variants,variants.prices',
+        })
+        const orderItems = getEnrichedLineItems(order.items, products)
+        if (orderItems) items = getGtmItems(orderItems)
+      }
+      sendGtmEcommerceEvent('purchase', {
+        transaction_id: order.id,
+        value: order.subtotal / 100,
+        currency: order.region.currency_code.toUpperCase(),
+        shipping: order.shipping_total / 100,
+        items,
+        user_data: {
+          email: order.email,
+          address: {
+            city: order.shipping_address.city,
+            first_name: order.shipping_address.first_name,
+            last_name: order.shipping_address.last_name,
+            postal_code: order.shipping_address.postal_code,
+            region: order.shipping_address.province,
+            country: order.shipping_address.country_code,
+            phone_number: order.shipping_address.phone,
+          }
+        }
+      })
     }
 
     if (cartId) {
       const redirectToOrder = async () => {
         const { order } = await medusaClient.orders.retrieveByCartId(cartId)
-        sendGtmPurchase(order)
+        await sendGtmPurchase(order)
         push(`/order/confirmed/${order.id}`)
       }
 
