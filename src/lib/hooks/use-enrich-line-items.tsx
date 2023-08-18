@@ -1,9 +1,41 @@
-import { LineItem } from "@medusajs/medusa"
+import { LineItem, Product } from "@medusajs/medusa"
 import omit from "lodash/omit"
 import { useCart, useProducts } from "medusa-react"
 import { useMemo } from "react"
 
 export type EnrichedLineItem = Omit<LineItem, "beforeInsert">
+
+export const getEnrichedLineItems = (items: LineItem[], products: Product[]) => {
+  const enrichedItems: EnrichedLineItem[] = []
+
+  for (const item of items) {
+    const product = products.find((p) => p.id === item.variant.product_id)
+
+    if (!product) {
+      enrichedItems.push(item)
+      return
+    }
+
+    const variant = product.variants.find((v) => v.id === item.variant_id)
+
+    if (!variant) {
+      enrichedItems.push(item)
+      return
+    }
+
+    enrichedItems.push({
+      ...item,
+      // @ts-ignore
+      variant: {
+        ...variant,
+        // @ts-ignore
+        product: omit(product, "variants"),
+      },
+    })
+  }
+
+  return enrichedItems
+}
 
 /**
  * A hook that returns an array of enriched line items.
@@ -41,33 +73,7 @@ const useEnrichedLineItems = (lineItems?: LineItem[], cartId?: string) => {
       return []
     }
 
-    const enrichedItems: EnrichedLineItem[] = []
-
-    for (const item of currItems) {
-      const product = products.find((p) => p.id === item.variant.product_id)
-
-      if (!product) {
-        enrichedItems.push(item)
-        return
-      }
-
-      const variant = product.variants.find((v) => v.id === item.variant_id)
-
-      if (!variant) {
-        enrichedItems.push(item)
-        return
-      }
-
-      enrichedItems.push({
-        ...item,
-        // @ts-ignore
-        variant: {
-          ...variant,
-          // @ts-ignore
-          product: omit(product, "variants"),
-        },
-      })
-    }
+    const enrichedItems= getEnrichedLineItems(currItems, products)
 
     return enrichedItems
   }, [cart?.items, lineItems, products])
