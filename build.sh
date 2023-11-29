@@ -34,7 +34,7 @@ fi
 
 crontab -r
 set -o allexport && source .env && set +o allexport && 
-(crontab -l ; printf "0 */25 * * * curl -i -X GET https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=$NEXT_PUBLIC_INSTAGRAM_TOKEN
+(crontab -l ; printf "0 */25 * * * curl -i -X GET \"https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=$NEXT_PUBLIC_INSTAGRAM_TOKEN\"
 ") | crontab -
 
 cd ..
